@@ -58,6 +58,19 @@ Im Auswahlbildschirm bewegen Steuerkreuz und linker Stick die Auswahl,
 
 Pfeiltasten = Steuerkreuz, **X** = A, **Y**/**Z** = B, **Enter** = Start.
 
+## PSP und Nintendo DS
+
+Diese beiden Kerne brauchen **Threads**, also `SharedArrayBuffer`. Den gibt der
+Browser nur auf einer abgeschotteten Seite frei, und dafür braucht es zwei
+Kopfzeilen (`Cross-Origin-Opener-Policy` und `Cross-Origin-Embedder-Policy`),
+die GitHub Pages nicht setzen kann.
+
+`abschottung.js` rüstet sie als Service Worker nach. Er wird **erst angemeldet,
+wenn wirklich ein PSP- oder DS-Spiel gestartet wird** – Game Boy und N64
+brauchen ihn nicht und sollen von einem Zwischenstück im Netzweg gar nicht
+berührt werden. Beim ersten Mal lädt die Seite danach einmal neu; das Spiel
+startet anschließend von selbst weiter.
+
 ## Aufbau
 
 Das Gehäuse und die Knopf-Geometrie werden aus `shell.py` der zugehörigen

@@ -10,6 +10,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="symbol-180.png">
 <link rel="icon" href="symbol.png">
 <title>Game Boy Advance SP – Zelda Edition</title>
+<!-- Muss frueh laufen: schottet die Seite ab, damit PSP und DS Threads
+     bekommen. Ohne das bleibt SharedArrayBuffer gesperrt. -->
+<script src="abschottung.js"></script>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
@@ -526,7 +529,7 @@ function starte(eintrag) {
   aktuell = sys; laeuft = true;
   aufbauen(sys.pad, sys.bild);
   document.getElementById("start").style.display = "none";
-  hochfahren(URL.createObjectURL(eintrag.daten), eintrag.name, sys);
+  hochfahren(URL.createObjectURL(eintrag.daten), eintrag.name, sys, eintrag.id);
 }
 
 function starteFromUrl(url) {
@@ -536,16 +539,36 @@ function starteFromUrl(url) {
   aktuell = sys; laeuft = true;
   aufbauen(sys.pad, sys.bild);
   document.getElementById("start").style.display = "none";
-  hochfahren(url, url.split("/").pop(), sys);
+  hochfahren(url, url.split("/").pop(), sys, null);
 }
 
-function hochfahren(url, name, sys) {
+function hochfahren(url, name, sys, kennung) {
+  // PSP und DS laufen nur mit Threads, und die gibt es nur auf einer
+  // abgeschotteten Seite. GitHub Pages kann die noetigen Kopfzeilen nicht
+  // setzen - ein Service Worker rueckt sie nach. Beim ersten Mal muss die
+  // Seite danach einmal neu laden, damit er sie auch kontrolliert.
+  if ((sys.kern === "psp" || sys.kern === "nds") && !window.crossOriginIsolated) {
+    document.getElementById("start").style.display = "";
+    laeuft = false;
+    melden("Wird eingerichtet – die Seite lädt gleich neu …");
+    (window.abschottungAnmelden ? window.abschottungAnmelden()
+                                : Promise.reject("fehlt"))
+      .then(() => { if (kennung) sessionStorage.setItem("starte", kennung);
+                    setTimeout(() => location.reload(), 600); })
+      .catch(fehler => melden("Dieses System braucht Threads, die hier nicht "
+                              + "zur Verfügung stehen (" + fehler + ")."));
+    return;
+  }
   window.EJS_player = "#game";
   window.EJS_core = sys.kern;
   window.EJS_gameUrl = url;
   window.EJS_gameName = name;
   window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
   window.EJS_startOnLoaded = true;
+  // PSP und DS brauchen Threads (SharedArrayBuffer). Die stehen nur zur
+  // Verfuegung, wenn die Seite abgeschottet ausgeliefert wird - siehe
+  // coi-serviceworker.js weiter oben.
+  window.EJS_threads = (sys.kern === "psp" || sys.kern === "nds");
   window.EJS_Buttons = { playPause: false, restart: false, settings: false,
                          saveState: false, loadState: false, screenRecord: false,
                          gamepad: false, cheat: false, volume: false,
