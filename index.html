@@ -47,7 +47,19 @@
   #liste .neu .titel { color: #cea54e; }
   #fuss { flex: 0 0 auto; text-align: center; font-size: clamp(6px, 1.8vw, 9px);
           color: #8d846e; padding-top: 2%; line-height: 1.4; }
-  #datei { display: none; }
+  #datei, #stand { display: none; }
+
+  /* Menue im laufenden Spiel, ueber dem Bild */
+  #menue { position: absolute; inset: 0; background: rgba(6,10,8,.93);
+           display: flex; flex-direction: column; justify-content: center;
+           padding: 5%; color: #e4dcc2; }
+  #menue h2 { font-size: clamp(9px, 2.6vw, 14px); letter-spacing: .16em;
+              color: #cea54e; text-align: center; margin: 0 0 5% 0; font-weight: 600; }
+  #menue .zeile { font-size: clamp(9px, 2.6vw, 13px); padding: .4em .6em;
+                  border-radius: 8px; border: 2px solid transparent; }
+  #menue .zeile.gewaehlt { background: rgba(196,158,60,.23); border-color: #e2c26c; }
+  #menue .pfeil { color: #e8ca78; opacity: 0; margin-right: .5em; }
+  #menue .zeile.gewaehlt .pfeil { opacity: 1; }
   #ladebalken { text-align: center; font-size: clamp(8px, 2.4vw, 12px); color: #cea54e; }
 
   /* EmulatorJS bringt auf Beruehrungsgeraeten eine eigene Bildschirmsteuerung
@@ -66,13 +78,14 @@
     <div id="start">
       <h1>SPIEL WÄHLEN</h1>
       <ul id="liste"></ul>
-      <div id="fuss">Steuerkreuz wählen · A startet<br>Power-Schalter: zurück zur Auswahl</div>
+      <div id="fuss">Steuerkreuz wählen · A startet<br>Im Spiel: SPIEL zurück zur Auswahl · Power-Schalter Menü</div>
       <div id="ladebalken"></div>
     </div>
   </div>
 </div>
 <input id="datei" type="file" multiple
        accept=".gb,.gbc,.gba,.n64,.z64,.v64,.smc,.sfc,.nes">
+<input id="stand" type="file" accept=".state">
 
 <script>
 // ---------------------------------------------------------------------------
@@ -313,8 +326,19 @@ function senden(name, gedrueckt) {
     else if (name === "A" || name === "START") waehlen();
     return;
   }
-  if (name === "MENU") {               // Power-Schalter: zurueck zur Auswahl
+  if (name === "SPIEL") {              // SPIEL-Knopf: zurueck zur Auswahl
     if (gedrueckt) zurueck();
+    return;
+  }
+  if (name === "MENU") {               // Power-Schalter: Spielstand-Menue
+    if (gedrueckt) menueUmschalten();
+    return;
+  }
+  if (menueOffen) {                    // im Menue steuert das Kreuz das Menue
+    if (!gedrueckt) return;
+    if (name === "UP" || name === "LEFT") menueBewegen(-1);
+    else if (name === "DOWN" || name === "RIGHT") menueBewegen(1);
+    else if (name === "A" || name === "START") menueWaehlen();
     return;
   }
   const em = window.EJS_emulator;
@@ -323,6 +347,81 @@ function senden(name, gedrueckt) {
   if (nr === undefined) return;
   try { em.gameManager.simulateInput(0, nr, gedrueckt ? 1 : 0); } catch (e) {}
 }
+
+// --- Menue im Spiel: Spielstand sichern und laden --------------------------
+// Gesichert wird ein vollstaendiger Speicherpunkt (getState) als Datei. Der
+// Browserspeicher haelt den Spielstand zwar von selbst, aber Safari raeumt
+// Webseiten-Daten irgendwann auf - auf eine Datei in der Dateien-App ist
+// mehr Verlass.
+let menueOffen = false, menueWahl = 0;
+const MENUE = [
+  { text: "Spielstand sichern", tun: standSichern },
+  { text: "Spielstand laden", tun: () => document.getElementById("stand").click() },
+  { text: "Zurück zur Auswahl", tun: zurueck },
+  { text: "Weiterspielen", tun: () => menueUmschalten() },
+];
+
+function menueUmschalten() {
+  menueOffen = !menueOffen;
+  menueWahl = 0;
+  zeichneMenue();
+}
+
+function menueBewegen(schritt) {
+  menueWahl = (menueWahl + schritt + MENUE.length) % MENUE.length;
+  zeichneMenue();
+}
+
+function menueWaehlen() { MENUE[menueWahl].tun(); }
+
+function zeichneMenue() {
+  let el = document.getElementById("menue");
+  if (!menueOffen) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "menue";
+    document.getElementById("bild").appendChild(el);
+  }
+  el.innerHTML = "<h2>MENÜ</h2>" + MENUE.map((m, i) =>
+    '<div class="zeile' + (i === menueWahl ? " gewaehlt" : "") + '" data-i="' + i
+    + '"><span class="pfeil">▶</span>' + m.text + "</div>").join("");
+  el.querySelectorAll(".zeile").forEach(z => z.addEventListener("click", () => {
+    menueWahl = +z.dataset.i; zeichneMenue(); menueWaehlen();
+  }));
+}
+
+function herunterladen(daten, name) {
+  const url = URL.createObjectURL(new Blob([daten], { type: "application/octet-stream" }));
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
+async function standSichern() {
+  const gm = window.EJS_emulator && window.EJS_emulator.gameManager;
+  if (!gm) return;
+  try {
+    gm.saveSaveFiles();
+    const stand = await gm.getState();
+    const name = (window.EJS_gameName || "spielstand")
+      + " " + new Date().toISOString().slice(0, 16).replace(/[T:]/g, "-") + ".state";
+    herunterladen(stand, name);
+    menueUmschalten();
+  } catch (e) { alert("Sichern nicht möglich: " + e); }
+}
+
+document.getElementById("stand").addEventListener("change", async ev => {
+  const datei = ev.target.files[0];
+  ev.target.value = "";
+  if (!datei) return;
+  const gm = window.EJS_emulator && window.EJS_emulator.gameManager;
+  if (!gm) return;
+  try {
+    gm.loadState(new Uint8Array(await datei.arrayBuffer()));
+    menueUmschalten();
+  } catch (e) { alert("Laden nicht möglich: " + e); }
+});
 
 function zurueck() {
   // EmulatorJS kann ein zweites Spiel nicht sauber in denselben Bereich laden,

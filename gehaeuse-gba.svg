@@ -110,7 +110,12 @@
     <stop offset="0.72" stop-color="#a57b23" stop-opacity="1" />
     <stop offset="1" stop-color="#8c681e" stop-opacity="1" />
 </linearGradient>
-<radialGradient gradientUnits="userSpaceOnUse" cx="190" cy="1112" r="198" fx="190" fy="1112" id="gradient10">
+<linearGradient gradientUnits="userSpaceOnUse" x1="382" y1="864" x2="382" y2="906" id="gradient10">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="190" cy="1112" r="198" fx="190" fy="1112" id="gradient11">
     <stop offset="0" stop-color="#b49144" stop-opacity="0.666667" />
     <stop offset="0.0196429" stop-color="#b49042" stop-opacity="0.65098" />
     <stop offset="0.0392857" stop-color="#b39142" stop-opacity="0.635294" />
@@ -164,12 +169,12 @@
     <stop offset="0.980435" stop-color="#34260c" stop-opacity="0.345098" />
     <stop offset="1" stop-color="#34260a" stop-opacity="0.352941" />
 </radialGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="502" y1="1114" x2="502" y2="1222" id="gradient11">
+<linearGradient gradientUnits="userSpaceOnUse" x1="502" y1="1114" x2="502" y2="1222" id="gradient12">
     <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
     <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
     <stop offset="1" stop-color="#42300e" stop-opacity="1" />
 </linearGradient>
-<radialGradient gradientUnits="userSpaceOnUse" cx="540" cy="1148" r="70.2" fx="540" fy="1148" id="gradient12">
+<radialGradient gradientUnits="userSpaceOnUse" cx="540" cy="1148" r="70.2" fx="540" fy="1148" id="gradient13">
     <stop offset="0" stop-color="#ffebb4" stop-opacity="0.352941" />
     <stop offset="0.02" stop-color="#ffebb4" stop-opacity="0.345098" />
     <stop offset="0.04" stop-color="#ffeab5" stop-opacity="0.337255" />
@@ -222,12 +227,12 @@
     <stop offset="0.98" stop-color="#ff8080" stop-opacity="0.00784314" />
     <stop offset="1" stop-color="#ffebb4" stop-opacity="0" />
 </radialGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="628" y1="1032" x2="628" y2="1140" id="gradient13">
+<linearGradient gradientUnits="userSpaceOnUse" x1="628" y1="1032" x2="628" y2="1140" id="gradient14">
     <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
     <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
     <stop offset="1" stop-color="#42300e" stop-opacity="1" />
 </linearGradient>
-<radialGradient gradientUnits="userSpaceOnUse" cx="666" cy="1066" r="70.2" fx="666" fy="1066" id="gradient14">
+<radialGradient gradientUnits="userSpaceOnUse" cx="666" cy="1066" r="70.2" fx="666" fy="1066" id="gradient15">
     <stop offset="0" stop-color="#ffebb4" stop-opacity="0.352941" />
     <stop offset="0.02" stop-color="#ffebb4" stop-opacity="0.345098" />
     <stop offset="0.04" stop-color="#ffeab5" stop-opacity="0.337255" />
@@ -280,22 +285,22 @@
     <stop offset="0.98" stop-color="#ff8080" stop-opacity="0.00784314" />
     <stop offset="1" stop-color="#ffebb4" stop-opacity="0" />
 </radialGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="272" y1="1316" x2="272" y2="1354" id="gradient15">
+<linearGradient gradientUnits="userSpaceOnUse" x1="272" y1="1316" x2="272" y2="1354" id="gradient16">
     <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
     <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
     <stop offset="1" stop-color="#42300e" stop-opacity="1" />
 </linearGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="436" y1="1316" x2="436" y2="1354" id="gradient16">
+<linearGradient gradientUnits="userSpaceOnUse" x1="436" y1="1316" x2="436" y2="1354" id="gradient17">
     <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
     <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
     <stop offset="1" stop-color="#42300e" stop-opacity="1" />
 </linearGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="317" y1="1381.46" x2="503" y2="1542.54" id="gradient17">
+<linearGradient gradientUnits="userSpaceOnUse" x1="317" y1="1381.46" x2="503" y2="1542.54" id="gradient18">
     <stop offset="0" stop-color="#eed080" stop-opacity="1" />
     <stop offset="0.5" stop-color="#d6b052" stop-opacity="1" />
     <stop offset="1" stop-color="#b08a34" stop-opacity="1" />
 </linearGradient>
-<radialGradient gradientUnits="userSpaceOnUse" cx="64" cy="950" r="26" fx="64" fy="950" id="gradient18">
+<radialGradient gradientUnits="userSpaceOnUse" cx="64" cy="950" r="26" fx="64" fy="950" id="gradient19">
     <stop offset="0" stop-color="#78ff8c" stop-opacity="0.745098" />
     <stop offset="0.02" stop-color="#77ff8a" stop-opacity="0.729412" />
     <stop offset="0.04" stop-color="#77ff8b" stop-opacity="0.713726" />
@@ -348,7 +353,7 @@
     <stop offset="0.98" stop-color="#80ff80" stop-opacity="0.0156863" />
     <stop offset="1" stop-color="#78ff8c" stop-opacity="0" />
 </radialGradient>
-<linearGradient gradientUnits="userSpaceOnUse" x1="680" y1="1564" x2="680" y2="1596" id="gradient19">
+<linearGradient gradientUnits="userSpaceOnUse" x1="680" y1="1564" x2="680" y2="1596" id="gradient20">
     <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
     <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
     <stop offset="1" stop-color="#42300e" stop-opacity="1" />
@@ -538,65 +543,107 @@ font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal"
 >
 </g>
 
-<g fill="#584010" fill-opacity="0.784314" stroke="none" transform="matrix(1,0,0,1,0,6)"
+<g fill="#604610" fill-opacity="0.588235" stroke="none" transform="matrix(1,0,0,1,0,3)"
 font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
+<path vector-effect="none" fill-rule="evenodd" d="M382,876 C382,869.373 387.373,864 394,864 L440,864 C446.627,864 452,869.373 452,876 L452,894 C452,900.627 446.627,906 440,906 L394,906 C387.373,906 382,900.627 382,894 L382,876"/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
 >
-</g>
-
-<g fill="#6c521c" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
->
-<path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
 </g>
 
 <g fill="url(#gradient10)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
 >
+<path vector-effect="none" fill-rule="evenodd" d="M382,876 C382,869.373 387.373,864 394,864 L440,864 C446.627,864 452,869.373 452,876 L452,894 C452,900.627 446.627,906 440,906 L394,906 C387.373,906 382,900.627 382,894 L382,876"/>
+</g>
+
+<g fill="none" stroke="#eedaa0" stroke-opacity="1" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M404,876 C404,874.343 405.343,873 407,873 L427,873 C428.657,873 430,874.343 430,876 L430,894 C430,895.657 428.657,897 427,897 L407,897 C405.343,897 404,895.657 404,894 L404,876"/>
+<polyline fill="none" vector-effect="none" points="408,879 426,879 " />
+<polyline fill="none" vector-effect="none" points="417,879 417,894 " />
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="none" stroke="#684c12" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<text fill="#684c12" fill-opacity="1" stroke="none" xml:space="preserve" x="404.5" y="926" font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+ >SPIEL</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#584010" fill-opacity="0.784314" stroke="none" transform="matrix(1,0,0,1,0,6)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#6c521c" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
+</g>
+
+<g fill="url(#gradient11)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
 <path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
 </g>
 
 <g fill="none" stroke="#42300e" stroke-opacity="1" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M70,1096 L70.1091,1094.24 L70.4276,1092.55 L70.9424,1090.94 L71.6403,1089.42 L72.5083,1088 L73.5333,1086.7 L74.702,1085.53 L76.0015,1084.51 L77.4185,1083.64 L78.94,1082.94 L80.5528,1082.43 L82.2439,1082.11 L84,1082 L156,1082 L156,1010 L156.109,1008.24 L156.428,1006.55 L156.942,1004.94 L157.64,1003.42 L158.508,1002 L159.533,1000.7 L160.702,999.533 L162.001,998.508 L163.419,997.64 L164.94,996.942 L166.553,996.428 L168.244,996.109 L170,996 L234,996 L235.756,996.109 L237.447,996.428 L239.06,996.942 L240.581,997.64 L241.999,998.508 L243.298,999.533 L244.467,1000.7 L245.492,1002 L246.36,1003.42 L247.058,1004.94 L247.572,1006.55 L247.891,1008.24 L248,1010 L248,1082 L320,1082 L321.756,1082.11 L323.447,1082.43 L325.06,1082.94 L326.581,1083.64 L327.999,1084.51 L329.298,1085.53 L330.467,1086.7 L331.492,1088 L332.36,1089.42 L333.058,1090.94 L333.572,1092.55 L333.891,1094.24 L334,1096 L334,1160 L333.891,1161.76 L333.572,1163.45 L333.058,1165.06 L332.36,1166.58 L331.492,1168 L330.467,1169.3 L329.298,1170.47 L327.999,1171.49 L326.581,1172.36 L325.06,1173.06 L323.447,1173.57 L321.756,1173.89 L320,1174 L248,1174 L248,1246 L247.891,1247.76 L247.572,1249.45 L247.058,1251.06 L246.36,1252.58 L245.492,1254 L244.467,1255.3 L243.298,1256.47 L241.999,1257.49 L240.581,1258.36 L239.06,1259.06 L237.447,1259.57 L235.756,1259.89 L234,1260 L170,1260 L168.244,1259.89 L166.553,1259.57 L164.94,1259.06 L163.419,1258.36 L162.001,1257.49 L160.702,1256.47 L159.533,1255.3 L158.508,1254 L157.64,1252.58 L156.942,1251.06 L156.428,1249.45 L156.109,1247.76 L156,1246 L156,1174 L84,1174 L82.2439,1173.89 L80.5528,1173.57 L78.94,1173.06 L77.4185,1172.36 L76.0015,1171.49 L74.702,1170.47 L73.5333,1169.3 L72.5083,1168 L71.6403,1166.58 L70.9424,1165.06 L70.4276,1163.45 L70.1091,1161.76 L70,1160 L70,1096"/>
 </g>
 
 <g fill="#000000" fill-opacity="0.196078" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <circle cx="202" cy="1128" r="19"/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
 <g fill="#5c4410" fill-opacity="0.705882" stroke="none" transform="matrix(1,0,0,1,0,6)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M613,1168 C613,1199.48 587.48,1225 556,1225 C524.52,1225 499,1199.48 499,1168 C499,1136.52 524.52,1111 556,1111 C587.48,1111 613,1136.52 613,1168 "/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
-<g fill="url(#gradient11)" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+<g fill="url(#gradient12)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M610,1168 C610,1197.82 585.823,1222 556,1222 C526.177,1222 502,1197.82 502,1168 C502,1138.18 526.177,1114 556,1114 C585.823,1114 610,1138.18 610,1168 "/>
 </g>
 
-<g fill="url(#gradient12)" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+<g fill="url(#gradient13)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M610,1168 C610,1197.82 585.823,1222 556,1222 C526.177,1222 502,1197.82 502,1168 C502,1138.18 526.177,1114 556,1114 C585.823,1114 610,1138.18 610,1168 "/>
 </g>
@@ -609,29 +656,29 @@ font-family="Segoe UI" font-size="30" font-weight="700" font-style="normal"
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
 <g fill="#5c4410" fill-opacity="0.705882" stroke="none" transform="matrix(1,0,0,1,0,6)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M739,1086 C739,1117.48 713.48,1143 682,1143 C650.52,1143 625,1117.48 625,1086 C625,1054.52 650.52,1029 682,1029 C713.48,1029 739,1054.52 739,1086 "/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
-<g fill="url(#gradient13)" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+<g fill="url(#gradient14)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M736,1086 C736,1115.82 711.823,1140 682,1140 C652.177,1140 628,1115.82 628,1086 C628,1056.18 652.177,1032 682,1032 C711.823,1032 736,1056.18 736,1086 "/>
 </g>
 
-<g fill="url(#gradient14)" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+<g fill="url(#gradient15)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M736,1086 C736,1115.82 711.823,1140 682,1140 C652.177,1140 628,1115.82 628,1086 C628,1056.18 652.177,1032 682,1032 C711.823,1032 736,1056.18 736,1086 "/>
 </g>
@@ -644,29 +691,29 @@ font-family="Segoe UI" font-size="30" font-weight="700" font-style="normal"
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
 <g fill="#604610" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M272,1332 C272,1323.16 279.163,1316 288,1316 L368,1316 C376.837,1316 384,1323.16 384,1332 L384,1338 C384,1346.84 376.837,1354 368,1354 L288,1354 C279.163,1354 272,1346.84 272,1338 L272,1332"/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
-<g fill="url(#gradient15)" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+<g fill="url(#gradient16)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M272,1332 C272,1323.16 279.163,1316 288,1316 L368,1316 C376.837,1316 384,1323.16 384,1332 L384,1338 C384,1346.84 376.837,1354 368,1354 L288,1354 C279.163,1354 272,1346.84 272,1338 L272,1332"/>
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
-font-family="Segoe UI" font-size="14" font-weight="700" font-style="normal" 
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 </g>
 
@@ -693,7 +740,7 @@ font-family="Segoe UI" font-size="13" font-weight="700" font-style="normal"
 >
 </g>
 
-<g fill="url(#gradient16)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient17)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="13" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M436,1332 C436,1323.16 443.163,1316 452,1316 L532,1316 C540.837,1316 548,1323.16 548,1332 L548,1338 C548,1346.84 540.837,1354 532,1354 L452,1354 C443.163,1354 436,1346.84 436,1338 L436,1332"/>
@@ -738,7 +785,7 @@ font-family="Segoe UI" font-size="13" font-weight="700" font-style="normal"
 >
 </g>
 
-<g fill="url(#gradient17)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient18)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="13" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M410,1383.88 L366.29,1459.58 L453.71,1459.58 L410,1383.88 M363.5,1464.42 L319.79,1540.12 L407.21,1540.12 L363.5,1464.42 M456.5,1464.42 L412.79,1540.12 L500.21,1540.12 L456.5,1464.42"/>
@@ -1117,7 +1164,7 @@ font-family="Segoe UI" font-size="25" font-weight="600" font-style="normal"
  >Nintendo</text>
 </g>
 
-<g fill="url(#gradient18)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient19)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="25" font-weight="600" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M90,950 C90,964.359 78.3594,976 64,976 C49.6406,976 38,964.359 38,950 C38,935.641 49.6406,924 64,924 C78.3594,924 90,935.641 90,950 "/>
@@ -1142,7 +1189,7 @@ font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M676,1572 C676,1565.37 681.373,1560 688,1560 L768,1560 C774.627,1560 780,1565.37 780,1572 L780,1588 C780,1594.63 774.627,1600 768,1600 L688,1600 C681.373,1600 676,1594.63 676,1588 L676,1572"/>
 </g>
 
-<g fill="url(#gradient19)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient20)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M680,1573 C680,1568.03 684.029,1564 689,1564 L719,1564 C723.971,1564 728,1568.03 728,1573 L728,1587 C728,1591.97 723.971,1596 719,1596 L689,1596 C684.029,1596 680,1591.97 680,1587 L680,1573"/>
