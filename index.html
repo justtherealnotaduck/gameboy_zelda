@@ -484,6 +484,8 @@ function zeichneListe() {
   }));
   zeilen.push({ titel: "+  Spiel hinzufügen",
                 zeile2: "aus der Dateien-App", neu: true });
+  zeilen.push({ titel: "Diagnose",
+                zeile2: "prüft, woran PSP und DS scheitern", neu: true });
   zeilen.forEach((z, i) => {
     const li = document.createElement("li");
     if (i === wahl) li.className = "gewaehlt";
@@ -499,14 +501,47 @@ function zeichneListe() {
 }
 
 function bewegen(schritt) {
-  const anzahl = spiele.length + 1;
+  const anzahl = spiele.length + 2;      // plus Hinzufuegen und Diagnose
   wahl = (wahl + schritt + anzahl) % anzahl;
   zeichneListe();
 }
 
 function waehlen() {
   if (wahl === spiele.length) { document.getElementById("datei").click(); return; }
+  if (wahl === spiele.length + 1) { diagnose(); return; }
   starte(spiele[wahl]);
+}
+
+// Sagt in Klartext, was fuer PSP und DS fehlt. Ohne das bleibt bei einem
+// Fehlschlag nur "Network Error" uebrig, und damit kann niemand etwas anfangen.
+async function diagnose() {
+  const ul = document.getElementById("liste");
+  const zeile = (was, wert) => '<li><span><span class="titel">' + was
+    + '</span><br><span class="zeile2">' + wert + "</span></span></li>";
+  ul.innerHTML = zeile("Prüfe …", "einen Moment");
+  const reg = navigator.serviceWorker
+    ? await navigator.serviceWorker.getRegistration() : null;
+  const hole = async (url, kopf) => {
+    try {
+      const r = await fetch(url, kopf);
+      return "HTTP " + r.status;
+    } catch (e) { return "Fehler: " + (e.message || e); }
+  };
+  const cdn = "https://cdn.emulatorjs.org/stable/data/";
+  const teile = [
+    ["Abgeschottet", window.crossOriginIsolated ? "ja" : "NEIN – PSP und DS gehen so nicht"],
+    ["SharedArrayBuffer", typeof SharedArrayBuffer !== "undefined" ? "vorhanden" : "FEHLT"],
+    ["Sicherer Kontext", window.isSecureContext ? "ja" : "nein"],
+    ["Service Worker", !navigator.serviceWorker ? "vom Browser nicht unterstützt"
+      : (navigator.serviceWorker.controller ? "kontrolliert die Seite"
+         : (reg ? "angemeldet, kontrolliert noch nicht" : "nicht angemeldet"))],
+    ["Kern-Beschreibung", await hole(cdn + "cores/reports/ppsspp.json")],
+    ["Kern-Datei (Teilstück)", await hole(cdn + "cores/ppsspp-thread-wasm.data",
+                                          { headers: { Range: "bytes=0-64" } })],
+    ["Eigene Seite", await hole("geometrie.json")],
+  ];
+  ul.innerHTML = teile.map(([a, b]) => zeile(a, b)).join("")
+    + zeile("Zurück", "SPIEL-Knopf oder Seite neu laden");
 }
 
 document.getElementById("datei").addEventListener("change", async ev => {

@@ -24,27 +24,31 @@ if (typeof window === "undefined") {
 
   self.addEventListener("fetch", ev => {
     const anfrage = ev.request;
-    // Reine Cache-Abfragen nicht anfassen, sonst wirft der Browser.
+
+    // Nur die eigenen Dateien anfassen. Das CDN mit den Emulatorkernen liefert
+    // von sich aus schon 'access-control-allow-origin: *' und
+    // 'Cross-Origin-Resource-Policy: cross-origin' - es braucht also nichts
+    // von uns. Fasst man es trotzdem an, geht es kaputt: die Kerndatei ist
+    // 4,5 MB gross und wird in Teilstuecken geladen (Range-Anfragen), und eine
+    // neu zusammengebaute Antwort verliert diese Eigenschaft. Genau das war
+    // der 'Network Error'.
+    if (new URL(anfrage.url).origin !== self.location.origin) return;
     if (anfrage.cache === "only-if-cached" && anfrage.mode !== "same-origin") return;
 
     ev.respondWith(
       fetch(anfrage)
         .then(antwort => {
-          if (antwort.status === 0) return antwort;      // undurchsichtig, unveraendert
+          if (antwort.status === 0 || antwort.type === "opaque") return antwort;
           const kopf = new Headers(antwort.headers);
           kopf.set("Cross-Origin-Embedder-Policy", "require-corp");
           kopf.set("Cross-Origin-Opener-Policy", "same-origin");
-          kopf.set("Cross-Origin-Resource-Policy", "cross-origin");
           return new Response(antwort.body, {
             status: antwort.status,
             statusText: antwort.statusText,
             headers: kopf,
           });
         })
-        .catch(fehler => {
-          console.error("Abschottung:", fehler);
-          return new Response("", { status: 502 });
-        })
+        .catch(() => fetch(anfrage))       // im Zweifel unveraendert durchreichen
     );
   });
 } else {
