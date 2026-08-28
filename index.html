@@ -106,7 +106,7 @@
   </div>
 </div>
 <input id="datei" type="file" multiple
-       accept=".gb,.gbc,.gba,.n64,.z64,.v64,.smc,.sfc,.nes">
+       accept=".gb,.gbc,.gba,.n64,.z64,.v64,.smc,.sfc,.nes,.iso,.cso,.pbp,.nds">
 <input id="stand" type="file" accept=".state">
 
 <script>
@@ -124,6 +124,14 @@ const SYSTEME = {
   smc: { kern: "snes", pad: "gba", bild: "gba", kurz: "Super Nintendo" },
   sfc: { kern: "snes", pad: "gba", bild: "gba", kurz: "Super Nintendo" },
   nes: { kern: "nes",  pad: "gba", bild: "gba", kurz: "NES" },
+  // PSP: die GTA-Ableger Liberty City Stories und Vice City Stories laufen
+  // hier - dieselbe Welt wie GTA III, nur fuer den Handheld gebaut. Braucht
+  // den Analogstick, bekommt darum das Querformat-Gehaeuse.
+  iso: { kern: "psp",  pad: "n64", bild: "psp", kurz: "PSP", tasten: "psp" },
+  cso: { kern: "psp",  pad: "n64", bild: "psp", kurz: "PSP", tasten: "psp" },
+  pbp: { kern: "psp",  pad: "n64", bild: "psp", kurz: "PSP", tasten: "psp" },
+  // Nintendo DS - unter anderem GTA Chinatown Wars, das in Liberty City spielt
+  nds: { kern: "nds",  pad: "gba", bild: "ds",  kurz: "Nintendo DS" },
 };
 
 // RetroArch-Knopfnummern: 0-15 die Digitaltasten, 16-19 der linke Analogstick,
@@ -134,9 +142,20 @@ const TASTE = { B: 0, Y: 1, SELECT: 2, START: 3, UP: 4, DOWN: 5, LEFT: 6,
 // Mask und Mario Kart steuern praktisch nur darueber, mit dem Digitalkreuz
 // waeren sie unspielbar. Das C-Kreuz liegt beim N64-Kern auf dem rechten
 // Stick, Z auf L2.
-const N64_TASTE = { UP: 16, DOWN: 17, LEFT: 18, RIGHT: 19,
+// A und B liegen beim N64-Kern umgekehrt: nachgemessen bestaetigt Knopf 0 die
+// Streckenwahl in Mario Kart, das ist N64-A. Knopf 8 tut dort nichts.
+const N64_TASTE = { A: 0, B: 8,
                     DUP: 4, DDOWN: 5, DLEFT: 6, DRIGHT: 7,
                     CUP: 20, CDOWN: 21, CLEFT: 22, CRIGHT: 23, Z: 12 };
+// Hochkant ist das Steuerkreuz die einzige Richtungseingabe. Es schickt darum
+// beides: den Analogstick zum Fahren und das Digitalkreuz fuer Menues - das
+// Pausenmenue von Mario Kart etwa reagiert nur auf das Digitalkreuz.
+const N64_RICHTUNG = { UP: [16, 4], DOWN: [17, 5], LEFT: [18, 6], RIGHT: [19, 7] };
+
+// PSP: Kreuz ist die Bestaetigungstaste und liegt auf 0, Kreis auf 8. Z und
+// das C-Kreuz gibt es dort nicht - die gezeichneten Knoepfe bleiben still.
+const PSP_TASTE = { A: 0, B: 8, START: 3, SELECT: 2, L: 10, R: 11,
+                    DUP: 4, DDOWN: 5, DLEFT: 6, DRIGHT: 7 };
 
 let geo = null, aktuell = null, spiele = [], wahl = 0, laeuft = false;
 let vollbild = false, letzterPad = "gba", letzteBildart = "gb";
@@ -572,6 +591,7 @@ function putzen() {
 
 // --- Knoepfe ---------------------------------------------------------------
 function nummer(name) {
+  if (aktuell && aktuell.tasten === "psp") return PSP_TASTE[name];
   if (aktuell && aktuell.pad === "n64" && name in N64_TASTE) return N64_TASTE[name];
   return TASTE[name];
 }
@@ -601,13 +621,21 @@ function senden(name, gedrueckt) {
   }
   const em = window.EJS_emulator;
   if (!em || !em.gameManager) return;
-  const nr = nummer(name);
-  if (nr === undefined) return;
   // Analogachsen (16-23) brauchen einen Ausschlag, keinen Ein/Aus-Wert: der
   // Bereich geht bis 32767. Mit 1 stand der Stick praktisch still - Mario Kart
   // liess sich fahren, aber nicht lenken.
-  const wert = gedrueckt ? (nr >= 16 && nr <= 23 ? 32767 : 1) : 0;
-  try { em.gameManager.simulateInput(0, nr, wert); } catch (e) {}
+  const schicke = nr => {
+    const wert = gedrueckt ? (nr >= 16 && nr <= 23 ? 32767 : 1) : 0;
+    try { em.gameManager.simulateInput(0, nr, wert); } catch (e) {}
+  };
+  if (aktuell && aktuell.pad === "n64" && !quer && name in N64_RICHTUNG
+      && aktuell.tasten !== "psp") {
+    N64_RICHTUNG[name].forEach(schicke);        // Stick und Kreuz zugleich
+    return;
+  }
+  const nr = nummer(name);
+  if (nr === undefined) return;
+  schicke(nr);
 }
 
 // --- Menue im Spiel: Spielstand sichern und laden --------------------------
