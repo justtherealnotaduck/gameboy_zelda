@@ -100,7 +100,7 @@
     <div id="start">
       <h1>SPIEL WÄHLEN</h1>
       <ul id="liste"></ul>
-      <div id="fuss">Steuerkreuz wählen · A startet<br>Im Spiel: SPIEL zurück zur Auswahl · Power-Schalter Menü</div>
+      <div id="fuss">Steuerkreuz wählen · A startet<br>Im Spiel: SPIEL-Knopf zurück zur Auswahl<br>Menü: Power-Schalter unten rechts oder langer Druck aufs Bild</div>
       <div id="ladebalken"></div>
     </div>
   </div>
@@ -838,6 +838,23 @@ function richtungAusAchse(name, gedrueckt) {
 }
 
 requestAnimationFrame(padLesen);
+
+// Zweiter Weg ins Menue: langer Druck auf das Bild. Der Power-Schalter ist
+// gezeichnet klein, und wer ihn nicht findet, kommt sonst nicht mehr heraus.
+(function langerDruck() {
+  const bild = document.getElementById("bild");
+  let uhr = null;
+  const start = () => {
+    if (!laeuft || menueOffen) return;
+    uhr = setTimeout(() => { uhr = null; menueUmschalten(); }, 600);
+  };
+  const stop = () => { if (uhr) { clearTimeout(uhr); uhr = null; } };
+  bild.addEventListener("touchstart", start, { passive: true });
+  bild.addEventListener("touchend", stop);
+  bild.addEventListener("touchmove", stop);
+  bild.addEventListener("mousedown", start);
+  bild.addEventListener("mouseup", stop);
+})();
 
 addEventListener("gesturestart", e => e.preventDefault());
 addEventListener("dblclick", e => e.preventDefault());
