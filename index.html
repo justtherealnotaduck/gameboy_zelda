@@ -592,7 +592,8 @@ function starte(eintrag) {
   aktuell = sys; laeuft = true;
   aufbauen(sys.pad, sys.bild);
   document.getElementById("start").style.display = "none";
-  hochfahren(URL.createObjectURL(eintrag.daten), eintrag.name, sys, eintrag.id);
+  hochfahren(URL.createObjectURL(eintrag.daten), eintrag.name, sys, eintrag.id,
+            eintrag.groesse);
 }
 
 function starteFromUrl(url) {
@@ -605,7 +606,8 @@ function starteFromUrl(url) {
   hochfahren(url, url.split("/").pop(), sys, null);
 }
 
-function hochfahren(url, name, sys, kennung) {
+function hochfahren(url, name, sys, kennung, groesse) {
+  const groesseMB = Math.round((groesse || 0) / 1048576);
   // PSP und DS laufen nur mit Threads, und die gibt es nur auf einer
   // abgeschotteten Seite. GitHub Pages kann die noetigen Kopfzeilen nicht
   // setzen - ein Service Worker rueckt sie nach. Beim ersten Mal muss die
@@ -632,6 +634,16 @@ function hochfahren(url, name, sys, kennung) {
   // Verfuegung, wenn die Seite abgeschottet ausgeliefert wird - siehe
   // coi-serviceworker.js weiter oben.
   window.EJS_threads = (sys.kern === "psp" || sys.kern === "nds");
+  // Der Emulator laedt das Abbild vollstaendig in den Arbeitsspeicher - er
+  // kann nicht wie eine echte PSP stueckweise von der Disc lesen. Safari gibt
+  // einer Seite davon deutlich weniger als ein Gigabyte. Gemessen an GTA
+  // Liberty City Stories mit 1197 MB: der Ladevorgang bricht ab, EmulatorJS
+  // meldet dann nur "Network Error".
+  if (sys.kern === "psp" && groesseMB > 700) {
+    melden("Achtung: " + groesseMB + " MB. Über etwa 700 MB reicht der "
+           + "Speicher auf dem iPhone meist nicht – eine .cso-Fassung ist "
+           + "kleiner. Wird trotzdem versucht …");
+  }
   window.EJS_Buttons = { playPause: false, restart: false, settings: false,
                          saveState: false, loadState: false, screenRecord: false,
                          gamepad: false, cheat: false, volume: false,
