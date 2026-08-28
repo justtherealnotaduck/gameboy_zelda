@@ -634,8 +634,7 @@ async function diagnose() {
   let kopiert = "";
   try {
     await navigator.clipboard.writeText(
-      teile.map(([a, b]) => a + ": " + b).join("
-"));
+      teile.map(([a, b]) => a + ": " + b).join("\n"));
     kopiert = "kopiert – kann direkt eingefügt werden";
   } catch (e) { kopiert = "Kopieren nicht möglich (" + (e.message || e) + ")"; }
 
