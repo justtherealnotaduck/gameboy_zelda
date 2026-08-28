@@ -629,7 +629,18 @@ async function diagnose() {
     ["Speicher", platz],
     ["Letzte Fehler", fehlerLog.length ? fehlerLog.slice(-3).join(" | ") : "keine"],
   ];
+  // In die Zwischenablage legen: das Ergebnis ist laenger als der Bildschirm,
+  // und abgetippte oder abgefilmte Diagnosen kosten beide Seiten Zeit.
+  let kopiert = "";
+  try {
+    await navigator.clipboard.writeText(
+      teile.map(([a, b]) => a + ": " + b).join("
+"));
+    kopiert = "kopiert – kann direkt eingefügt werden";
+  } catch (e) { kopiert = "Kopieren nicht möglich (" + (e.message || e) + ")"; }
+
   ul.innerHTML = teile.map(([a, b]) => zeile(a, b)).join("")
+    + zeile("Zwischenablage", kopiert)
     + zeile("Zurück", "SPIEL-Knopf oder Seite neu laden");
 }
 
