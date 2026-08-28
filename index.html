@@ -584,10 +584,28 @@ async function diagnose() {
   if (spiele.length) {
     const groesstes = spiele.reduce((a, b) => (a.groesse > b.groesse ? a : b));
     spielInfo = groesstes.name + " · " + (groesstes.groesse / 1048576).toFixed(0) + " MB";
+    // Nicht nur den Anfang lesen: eine abgeschnittene Datei faengt genauso an
+    // wie eine vollstaendige. Entscheidend sind die Groesse laut Datenbank und
+    // die letzten Bytes - die gibt es nur, wenn wirklich alles da ist.
     try {
-      const stueck = await groesstes.daten.slice(0, 64).arrayBuffer();
-      spielInfo += " · lesbar (" + stueck.byteLength + " Bytes)";
-    } catch (e) { spielInfo += " · NICHT LESBAR: " + (e.message || e); }
+      const blob = groesstes.daten;
+      spielInfo += " · Blob " + (blob.size / 1048576).toFixed(0) + " MB";
+      if (blob.size !== groesstes.groesse) spielInfo += " · GRÖSSE WEICHT AB";
+      const anfang = await blob.slice(0, 64).arrayBuffer();
+      const ende = await blob.slice(blob.size - 64).arrayBuffer();
+      spielInfo += " · Anfang " + anfang.byteLength
+                 + " / Ende " + ende.byteLength + " Bytes lesbar";
+      // Einmal ganz durchlesen - nur so zeigt sich, ob die Mitte fehlt.
+      const strom = blob.stream().getReader();
+      let gelesen = 0;
+      for (;;) {
+        const { done, value } = await strom.read();
+        if (done) break;
+        gelesen += value.length;
+      }
+      spielInfo += " · durchgelesen " + (gelesen / 1048576).toFixed(0) + " MB"
+                 + (gelesen === blob.size ? " (vollständig)" : " (UNVOLLSTÄNDIG)");
+    } catch (e) { spielInfo += " · FEHLER: " + (e.message || e); }
   }
   let platz = "unbekannt";
   try {
