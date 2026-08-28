@@ -30,22 +30,26 @@ meldet ihn im Standard-Layout, auch in der App vom Home-Bildschirm.
 Die eingebaute Controller-Belegung von EmulatorJS wird dabei gelöst, sonst
 kämen doppelte und widersprüchliche Eingaben an.
 
-| Controller | Nintendo 64 | Game Boy / GBC / GBA |
-|---|---|---|
-| **Linker Stick** | Analogstick | Steuerkreuz |
-| **Steuerkreuz** | Digitalkreuz (quer) bzw. Analogstick (hochkant) | Steuerkreuz |
-| **Rechter Stick** | C-Kreuz | – |
-| **Kreuz ✕** | A | A |
-| **Kreis ○** | B | B |
-| **Viereck □** | B | B |
-| **Dreieck △** | C-oben (Ego-Sicht in Zelda) | A |
-| **L1** | L | L |
-| **R1** | R | R |
-| **L2 / R2** | Z | L / R |
-| **Options** | Start | Start |
-| **Share** | – (N64 hat kein Select) | Select |
-| **L3 / PS** | Menü öffnen und schließen | Menü |
-| **Touchpad-Klick** | zurück zur Spielauswahl | zurück zur Spielauswahl |
+| Controller | Nintendo 64 | Game Boy / GBC / GBA | PSP |
+|---|---|---|---|
+| **Linker Stick** | Analogstick | Steuerkreuz | Analogstick |
+| **Steuerkreuz** | Digitalkreuz (quer) bzw. Analogstick (hochkant) | Steuerkreuz | Steuerkreuz |
+| **Rechter Stick** | C-Kreuz | – | – |
+| **Kreuz ✕** | A | A | Kreuz ✕ |
+| **Kreis ○** | B | B | Kreis ○ |
+| **Viereck □** | B | B | Viereck □ |
+| **Dreieck △** | C-oben (Ego-Sicht in Zelda) | A | Dreieck △ |
+| **L1** | L | L | L |
+| **R1** | R | R | R |
+| **L2 / R2** | Z | L / R | L / R |
+| **Options** | Start | Start | Start |
+| **Share** | – (N64 hat kein Select) | Select | Select |
+| **L3 / PS** | Menü öffnen und schließen | Menü | Menü |
+| **Touchpad-Klick** | zurück zur Spielauswahl | zurück zur Spielauswahl | zurück zur Auswahl |
+
+Bei **PSP** liegen die Tasten 1:1 – Kreuz auf Kreuz, Dreieck auf Dreieck. In
+GTA ist Dreieck zum Einsteigen und Viereck zum Schlagen; die würden sonst auf
+dem falschen Knopf landen.
 
 Im Auswahlbildschirm bewegen Steuerkreuz und linker Stick die Auswahl,
 **Kreuz ✕** oder **Options** startet.

@@ -763,7 +763,22 @@ const PAD = {
 // Getrennt nach System, weil ein N64 kein SELECT hat und ein Game Boy kein Z.
 function padBelegung() {
   const n64 = aktuell && aktuell.pad === "n64";
-  const digitalkreuz = n64 && quer;      // quer gibt es Stick UND Kreuz
+  const psp = aktuell && aktuell.tasten === "psp";
+  const digitalkreuz = (n64 && quer) || psp;   // quer gibt es Stick UND Kreuz
+
+  // PSP-Spiele auf einem PlayStation-Controller: die Tasten liegen 1:1, Kreuz
+  // auf Kreuz und Dreieck auf Dreieck. Darum hier keine Umleitung ueber die
+  // gezeichneten Knoepfe, sondern die Nummern direkt - in GTA ist Dreieck
+  // zum Einsteigen und Viereck zum Schlagen, das darf nicht auf A landen.
+  if (psp) {
+    return {
+      KREUZ: 0, KREIS: 8, VIERECK: 1, DREIECK: 9,
+      L1: 10, R1: 11, L2: 10, R2: 11,
+      OPTIONS: 3, SHARE: 2,
+      OBEN: "DUP", UNTEN: "DDOWN", LINKS: "DLEFT", RECHTS: "DRIGHT",
+      L3: "MENU", PS: "MENU", TOUCHPAD: "SPIEL",
+    };
+  }
   return {
     KREUZ: "A",
     KREIS: "B",
@@ -806,11 +821,11 @@ function padLesen() {
     const name = PAD[i];
     if (!name) return;
     const ziel = belegung[name];
-    if (!ziel) return;
+    if (ziel === undefined || ziel === null) return;
     const gedrueckt = b.pressed || b.value > 0.5;
     if (padStand[name] === gedrueckt) return;
     padStand[name] = gedrueckt;
-    senden(ziel, gedrueckt);
+    padZiel(ziel, gedrueckt);
   });
 
   // Linker Stick: beim N64 der Analogstick, sonst das Steuerkreuz
@@ -823,11 +838,20 @@ function padLesen() {
   }
 
   // Rechter Stick: beim N64 das C-Kreuz
-  if (aktuell && aktuell.pad === "n64" && laeuft) {
+  if (aktuell && aktuell.pad === "n64" && laeuft && aktuell.tasten !== "psp") {
     const rx = pad.axes[2] || 0, ry = pad.axes[3] || 0;
     richtungAusAchse("CUP", ry < -0.5); richtungAusAchse("CDOWN", ry > 0.5);
     richtungAusAchse("CLEFT", rx < -0.5); richtungAusAchse("CRIGHT", rx > 0.5);
   }
+}
+
+// Ein Ziel ist entweder der Name eines gezeichneten Knopfes oder direkt eine
+// Knopfnummer des Emulators - Letzteres fuer die 1:1-Belegung bei PSP.
+function padZiel(ziel, gedrueckt) {
+  if (typeof ziel === "string") { senden(ziel, gedrueckt); return; }
+  const em = window.EJS_emulator;
+  if (!em || !em.gameManager) return;
+  try { em.gameManager.simulateInput(0, ziel, gedrueckt ? 1 : 0); } catch (e) {}
 }
 
 function richtungAusAchse(name, gedrueckt) {
