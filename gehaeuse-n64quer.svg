@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="564.444mm" height="261.056mm"
+ viewBox="0 0 1600 740"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny">
+<title>Nintendo 64 Controller - Zelda Edition</title>
+<desc>Generated with Qt</desc>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="740" id="gradient1">
+    <stop offset="0" stop-color="#f7e29e" stop-opacity="1" />
+    <stop offset="0.1" stop-color="#e7b94a" stop-opacity="1" />
+    <stop offset="0.45" stop-color="#cea542" stop-opacity="1" />
+    <stop offset="0.72" stop-color="#a57b23" stop-opacity="1" />
+    <stop offset="1" stop-color="#8c681e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="130" id="gradient2">
+    <stop offset="0" stop-color="#fffadc" stop-opacity="0.509804" />
+    <stop offset="0.02" stop-color="#fff9db" stop-opacity="0.498039" />
+    <stop offset="0.04" stop-color="#fffbdc" stop-opacity="0.486275" />
+    <stop offset="0.06" stop-color="#fff9db" stop-opacity="0.478431" />
+    <stop offset="0.08" stop-color="#fffbdd" stop-opacity="0.466667" />
+    <stop offset="0.1" stop-color="#fff8dc" stop-opacity="0.458824" />
+    <stop offset="0.12" stop-color="#fffbdb" stop-opacity="0.447059" />
+    <stop offset="0.14" stop-color="#fff8db" stop-opacity="0.439216" />
+    <stop offset="0.16" stop-color="#fffadc" stop-opacity="0.427451" />
+    <stop offset="0.18" stop-color="#fffadb" stop-opacity="0.415686" />
+    <stop offset="0.2" stop-color="#fff8da" stop-opacity="0.407843" />
+    <stop offset="0.22" stop-color="#fffadc" stop-opacity="0.396078" />
+    <stop offset="0.24" stop-color="#fff7db" stop-opacity="0.388235" />
+    <stop offset="0.26" stop-color="#fffadc" stop-opacity="0.376471" />
+    <stop offset="0.28" stop-color="#fffadb" stop-opacity="0.364706" />
+    <stop offset="0.3" stop-color="#fff9db" stop-opacity="0.356863" />
+    <stop offset="0.32" stop-color="#fff9dc" stop-opacity="0.345098" />
+    <stop offset="0.34" stop-color="#fff9db" stop-opacity="0.333333" />
+    <stop offset="0.36" stop-color="#fff9da" stop-opacity="0.32549" />
+    <stop offset="0.38" stop-color="#fff9dc" stop-opacity="0.313726" />
+    <stop offset="0.4" stop-color="#fff8db" stop-opacity="0.305882" />
+    <stop offset="0.42" stop-color="#fff8dd" stop-opacity="0.294118" />
+    <stop offset="0.44" stop-color="#fff8dc" stop-opacity="0.286275" />
+    <stop offset="0.46" stop-color="#fff8db" stop-opacity="0.27451" />
+    <stop offset="0.48" stop-color="#fff8da" stop-opacity="0.266667" />
+    <stop offset="0.5" stop-color="#fff7dc" stop-opacity="0.254902" />
+    <stop offset="0.52" stop-color="#fffbda" stop-opacity="0.243137" />
+    <stop offset="0.54" stop-color="#fffbdc" stop-opacity="0.231373" />
+    <stop offset="0.56" stop-color="#fffbdb" stop-opacity="0.223529" />
+    <stop offset="0.58" stop-color="#fffade" stop-opacity="0.211765" />
+    <stop offset="0.6" stop-color="#fffadd" stop-opacity="0.203922" />
+    <stop offset="0.62" stop-color="#fffadb" stop-opacity="0.192157" />
+    <stop offset="0.64" stop-color="#fffad9" stop-opacity="0.184314" />
+    <stop offset="0.66" stop-color="#fff9dc" stop-opacity="0.172549" />
+    <stop offset="0.68" stop-color="#fff9da" stop-opacity="0.160784" />
+    <stop offset="0.7" stop-color="#fff8d8" stop-opacity="0.152941" />
+    <stop offset="0.72" stop-color="#fff8dc" stop-opacity="0.141176" />
+    <stop offset="0.74" stop-color="#fff8da" stop-opacity="0.133333" />
+    <stop offset="0.76" stop-color="#fff7de" stop-opacity="0.121569" />
+    <stop offset="0.78" stop-color="#ffffdb" stop-opacity="0.109804" />
+    <stop offset="0.8" stop-color="#fff5d8" stop-opacity="0.101961" />
+    <stop offset="0.82" stop-color="#ffffde" stop-opacity="0.0901961" />
+    <stop offset="0.84" stop-color="#ffffd9" stop-opacity="0.0784314" />
+    <stop offset="0.86" stop-color="#fff1d5" stop-opacity="0.0705882" />
+    <stop offset="0.88" stop-color="#ffffdd" stop-opacity="0.0588235" />
+    <stop offset="0.9" stop-color="#ffebd8" stop-opacity="0.0509804" />
+    <stop offset="0.92" stop-color="#ffffe6" stop-opacity="0.0392157" />
+    <stop offset="0.94" stop-color="#ffdfdf" stop-opacity="0.0313726" />
+    <stop offset="0.96" stop-color="#ffffcc" stop-opacity="0.0196078" />
+    <stop offset="0.98" stop-color="#ffaaaa" stop-opacity="0.0117647" />
+    <stop offset="1" stop-color="#fffadc" stop-opacity="0" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1245" y1="0" x2="1245" y2="740" id="gradient3">
+    <stop offset="0" stop-color="#f7e29e" stop-opacity="1" />
+    <stop offset="0.1" stop-color="#e7b94a" stop-opacity="1" />
+    <stop offset="0.45" stop-color="#cea542" stop-opacity="1" />
+    <stop offset="0.72" stop-color="#a57b23" stop-opacity="1" />
+    <stop offset="1" stop-color="#8c681e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="130" id="gradient4">
+    <stop offset="0" stop-color="#fffadc" stop-opacity="0.509804" />
+    <stop offset="0.02" stop-color="#fff9db" stop-opacity="0.498039" />
+    <stop offset="0.04" stop-color="#fffbdc" stop-opacity="0.486275" />
+    <stop offset="0.06" stop-color="#fff9db" stop-opacity="0.478431" />
+    <stop offset="0.08" stop-color="#fffbdd" stop-opacity="0.466667" />
+    <stop offset="0.1" stop-color="#fff8dc" stop-opacity="0.458824" />
+    <stop offset="0.12" stop-color="#fffbdb" stop-opacity="0.447059" />
+    <stop offset="0.14" stop-color="#fff8db" stop-opacity="0.439216" />
+    <stop offset="0.16" stop-color="#fffadc" stop-opacity="0.427451" />
+    <stop offset="0.18" stop-color="#fffadb" stop-opacity="0.415686" />
+    <stop offset="0.2" stop-color="#fff8da" stop-opacity="0.407843" />
+    <stop offset="0.22" stop-color="#fffadc" stop-opacity="0.396078" />
+    <stop offset="0.24" stop-color="#fff7db" stop-opacity="0.388235" />
+    <stop offset="0.26" stop-color="#fffadc" stop-opacity="0.376471" />
+    <stop offset="0.28" stop-color="#fffadb" stop-opacity="0.364706" />
+    <stop offset="0.3" stop-color="#fff9db" stop-opacity="0.356863" />
+    <stop offset="0.32" stop-color="#fff9dc" stop-opacity="0.345098" />
+    <stop offset="0.34" stop-color="#fff9db" stop-opacity="0.333333" />
+    <stop offset="0.36" stop-color="#fff9da" stop-opacity="0.32549" />
+    <stop offset="0.38" stop-color="#fff9dc" stop-opacity="0.313726" />
+    <stop offset="0.4" stop-color="#fff8db" stop-opacity="0.305882" />
+    <stop offset="0.42" stop-color="#fff8dd" stop-opacity="0.294118" />
+    <stop offset="0.44" stop-color="#fff8dc" stop-opacity="0.286275" />
+    <stop offset="0.46" stop-color="#fff8db" stop-opacity="0.27451" />
+    <stop offset="0.48" stop-color="#fff8da" stop-opacity="0.266667" />
+    <stop offset="0.5" stop-color="#fff7dc" stop-opacity="0.254902" />
+    <stop offset="0.52" stop-color="#fffbda" stop-opacity="0.243137" />
+    <stop offset="0.54" stop-color="#fffbdc" stop-opacity="0.231373" />
+    <stop offset="0.56" stop-color="#fffbdb" stop-opacity="0.223529" />
+    <stop offset="0.58" stop-color="#fffade" stop-opacity="0.211765" />
+    <stop offset="0.6" stop-color="#fffadd" stop-opacity="0.203922" />
+    <stop offset="0.62" stop-color="#fffadb" stop-opacity="0.192157" />
+    <stop offset="0.64" stop-color="#fffad9" stop-opacity="0.184314" />
+    <stop offset="0.66" stop-color="#fff9dc" stop-opacity="0.172549" />
+    <stop offset="0.68" stop-color="#fff9da" stop-opacity="0.160784" />
+    <stop offset="0.7" stop-color="#fff8d8" stop-opacity="0.152941" />
+    <stop offset="0.72" stop-color="#fff8dc" stop-opacity="0.141176" />
+    <stop offset="0.74" stop-color="#fff8da" stop-opacity="0.133333" />
+    <stop offset="0.76" stop-color="#fff7de" stop-opacity="0.121569" />
+    <stop offset="0.78" stop-color="#ffffdb" stop-opacity="0.109804" />
+    <stop offset="0.8" stop-color="#fff5d8" stop-opacity="0.101961" />
+    <stop offset="0.82" stop-color="#ffffde" stop-opacity="0.0901961" />
+    <stop offset="0.84" stop-color="#ffffd9" stop-opacity="0.0784314" />
+    <stop offset="0.86" stop-color="#fff1d5" stop-opacity="0.0705882" />
+    <stop offset="0.88" stop-color="#ffffdd" stop-opacity="0.0588235" />
+    <stop offset="0.9" stop-color="#ffebd8" stop-opacity="0.0509804" />
+    <stop offset="0.92" stop-color="#ffffe6" stop-opacity="0.0392157" />
+    <stop offset="0.94" stop-color="#ffdfdf" stop-opacity="0.0313726" />
+    <stop offset="0.96" stop-color="#ffffcc" stop-opacity="0.0196078" />
+    <stop offset="0.98" stop-color="#ffaaaa" stop-opacity="0.0117647" />
+    <stop offset="1" stop-color="#fffadc" stop-opacity="0" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="353" y1="13" x2="353" y2="694" id="gradient5">
+    <stop offset="0" stop-color="#3a3732" stop-opacity="1" />
+    <stop offset="0.25" stop-color="#181716" stop-opacity="1" />
+    <stop offset="1" stop-color="#0e0e0d" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="30" y1="18" x2="30" y2="72" id="gradient6">
+    <stop offset="0" stop-color="#ffeeb9" stop-opacity="1" />
+    <stop offset="0.1" stop-color="#e7b94a" stop-opacity="1" />
+    <stop offset="0.45" stop-color="#cea542" stop-opacity="1" />
+    <stop offset="0.72" stop-color="#a57b23" stop-opacity="1" />
+    <stop offset="1" stop-color="#8c681e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1275" y1="18" x2="1275" y2="72" id="gradient7">
+    <stop offset="0" stop-color="#ffeeb9" stop-opacity="1" />
+    <stop offset="0.1" stop-color="#e7b94a" stop-opacity="1" />
+    <stop offset="0.45" stop-color="#cea542" stop-opacity="1" />
+    <stop offset="0.72" stop-color="#a57b23" stop-opacity="1" />
+    <stop offset="1" stop-color="#8c681e" stop-opacity="1" />
+</linearGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="178" cy="330" r="108" fx="178" fy="330" id="gradient8">
+    <stop offset="0" stop-color="#3c2c0a" stop-opacity="0.784314" />
+    <stop offset="0.02" stop-color="#3d2d0a" stop-opacity="0.772549" />
+    <stop offset="0.04" stop-color="#3d2e0a" stop-opacity="0.764706" />
+    <stop offset="0.06" stop-color="#3e2e0b" stop-opacity="0.756863" />
+    <stop offset="0.08" stop-color="#3f2f0b" stop-opacity="0.74902" />
+    <stop offset="0.1" stop-color="#3f2f0b" stop-opacity="0.741176" />
+    <stop offset="0.12" stop-color="#40300c" stop-opacity="0.733333" />
+    <stop offset="0.14" stop-color="#41310c" stop-opacity="0.721569" />
+    <stop offset="0.16" stop-color="#42320d" stop-opacity="0.713726" />
+    <stop offset="0.18" stop-color="#44330d" stop-opacity="0.705882" />
+    <stop offset="0.2" stop-color="#45340d" stop-opacity="0.698039" />
+    <stop offset="0.22" stop-color="#46340d" stop-opacity="0.686275" />
+    <stop offset="0.24" stop-color="#47350f" stop-opacity="0.678431" />
+    <stop offset="0.26" stop-color="#48360f" stop-opacity="0.670588" />
+    <stop offset="0.28" stop-color="#48360f" stop-opacity="0.662745" />
+    <stop offset="0.3" stop-color="#49380f" stop-opacity="0.654902" />
+    <stop offset="0.32" stop-color="#4a390f" stop-opacity="0.647059" />
+    <stop offset="0.34" stop-color="#4d3a11" stop-opacity="0.635294" />
+    <stop offset="0.36" stop-color="#4e3b12" stop-opacity="0.627451" />
+    <stop offset="0.38" stop-color="#4f3c12" stop-opacity="0.619608" />
+    <stop offset="0.4" stop-color="#503c12" stop-opacity="0.611765" />
+    <stop offset="0.42" stop-color="#513d12" stop-opacity="0.603922" />
+    <stop offset="0.44" stop-color="#534013" stop-opacity="0.592157" />
+    <stop offset="0.46" stop-color="#544115" stop-opacity="0.584314" />
+    <stop offset="0.48" stop-color="#554215" stop-opacity="0.576471" />
+    <stop offset="0.5" stop-color="#584315" stop-opacity="0.568627" />
+    <stop offset="0.52" stop-color="#5a4416" stop-opacity="0.556863" />
+    <stop offset="0.54" stop-color="#5b4516" stop-opacity="0.54902" />
+    <stop offset="0.56" stop-color="#5c4618" stop-opacity="0.541176" />
+    <stop offset="0.58" stop-color="#5e4918" stop-opacity="0.533333" />
+    <stop offset="0.6" stop-color="#5f4a19" stop-opacity="0.52549" />
+    <stop offset="0.62" stop-color="#614b19" stop-opacity="0.517647" />
+    <stop offset="0.64" stop-color="#634d1a" stop-opacity="0.505882" />
+    <stop offset="0.66" stop-color="#644e1a" stop-opacity="0.498039" />
+    <stop offset="0.68" stop-color="#68501d" stop-opacity="0.490196" />
+    <stop offset="0.7" stop-color="#6a511d" stop-opacity="0.482353" />
+    <stop offset="0.72" stop-color="#6c551e" stop-opacity="0.470588" />
+    <stop offset="0.74" stop-color="#6e561e" stop-opacity="0.462745" />
+    <stop offset="0.76" stop-color="#70581f" stop-opacity="0.454902" />
+    <stop offset="0.78" stop-color="#72591f" stop-opacity="0.447059" />
+    <stop offset="0.8" stop-color="#745b22" stop-opacity="0.439216" />
+    <stop offset="0.82" stop-color="#765d23" stop-opacity="0.431373" />
+    <stop offset="0.84" stop-color="#7c5f24" stop-opacity="0.419608" />
+    <stop offset="0.86" stop-color="#7e6424" stop-opacity="0.411765" />
+    <stop offset="0.88" stop-color="#816625" stop-opacity="0.403922" />
+    <stop offset="0.9" stop-color="#836828" stop-opacity="0.396078" />
+    <stop offset="0.92" stop-color="#866a29" stop-opacity="0.388235" />
+    <stop offset="0.94" stop-color="#8a6d2b" stop-opacity="0.376471" />
+    <stop offset="0.96" stop-color="#8d6f2b" stop-opacity="0.368627" />
+    <stop offset="0.98" stop-color="#90722c" stop-opacity="0.360784" />
+    <stop offset="1" stop-color="#967630" stop-opacity="0.352941" />
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="170" cy="568" r="117" fx="170" fy="568" id="gradient9">
+    <stop offset="0" stop-color="#b49144" stop-opacity="0.666667" />
+    <stop offset="0.02" stop-color="#b39043" stop-opacity="0.658824" />
+    <stop offset="0.04" stop-color="#b28f42" stop-opacity="0.65098" />
+    <stop offset="0.06" stop-color="#b08e41" stop-opacity="0.647059" />
+    <stop offset="0.08" stop-color="#af8d40" stop-opacity="0.639216" />
+    <stop offset="0.1" stop-color="#ad8b3f" stop-opacity="0.635294" />
+    <stop offset="0.12" stop-color="#ac8b40" stop-opacity="0.627451" />
+    <stop offset="0.14" stop-color="#aa883f" stop-opacity="0.623529" />
+    <stop offset="0.16" stop-color="#a9873e" stop-opacity="0.615686" />
+    <stop offset="0.18" stop-color="#a6853d" stop-opacity="0.607843" />
+    <stop offset="0.2" stop-color="#a4843c" stop-opacity="0.603922" />
+    <stop offset="0.22" stop-color="#a3833c" stop-opacity="0.596078" />
+    <stop offset="0.24" stop-color="#a2813c" stop-opacity="0.588235" />
+    <stop offset="0.26" stop-color="#9f803a" stop-opacity="0.584314" />
+    <stop offset="0.28" stop-color="#9e7f39" stop-opacity="0.576471" />
+    <stop offset="0.3" stop-color="#9b7e38" stop-opacity="0.572549" />
+    <stop offset="0.32" stop-color="#9a7c39" stop-opacity="0.564706" />
+    <stop offset="0.34" stop-color="#997a38" stop-opacity="0.556863" />
+    <stop offset="0.36" stop-color="#967736" stop-opacity="0.552941" />
+    <stop offset="0.38" stop-color="#957735" stop-opacity="0.545098" />
+    <stop offset="0.4" stop-color="#927434" stop-opacity="0.541176" />
+    <stop offset="0.42" stop-color="#907233" stop-opacity="0.533333" />
+    <stop offset="0.44" stop-color="#8e7133" stop-opacity="0.529412" />
+    <stop offset="0.46" stop-color="#8c6f32" stop-opacity="0.521569" />
+    <stop offset="0.48" stop-color="#8a6d31" stop-opacity="0.513726" />
+    <stop offset="0.5" stop-color="#876c2f" stop-opacity="0.509804" />
+    <stop offset="0.52" stop-color="#856a2e" stop-opacity="0.501961" />
+    <stop offset="0.54" stop-color="#84672d" stop-opacity="0.494118" />
+    <stop offset="0.56" stop-color="#81662d" stop-opacity="0.490196" />
+    <stop offset="0.58" stop-color="#7e642c" stop-opacity="0.482353" />
+    <stop offset="0.6" stop-color="#7b602a" stop-opacity="0.478431" />
+    <stop offset="0.62" stop-color="#796028" stop-opacity="0.470588" />
+    <stop offset="0.64" stop-color="#765c27" stop-opacity="0.466667" />
+    <stop offset="0.66" stop-color="#745927" stop-opacity="0.458824" />
+    <stop offset="0.68" stop-color="#6f5626" stop-opacity="0.45098" />
+    <stop offset="0.7" stop-color="#6b5524" stop-opacity="0.447059" />
+    <stop offset="0.72" stop-color="#695222" stop-opacity="0.439216" />
+    <stop offset="0.74" stop-color="#664f20" stop-opacity="0.431373" />
+    <stop offset="0.76" stop-color="#624d1e" stop-opacity="0.427451" />
+    <stop offset="0.78" stop-color="#5f4a1f" stop-opacity="0.419608" />
+    <stop offset="0.8" stop-color="#5b481d" stop-opacity="0.415686" />
+    <stop offset="0.82" stop-color="#58451b" stop-opacity="0.407843" />
+    <stop offset="0.84" stop-color="#554119" stop-opacity="0.4" />
+    <stop offset="0.86" stop-color="#513d17" stop-opacity="0.396078" />
+    <stop offset="0.88" stop-color="#4d3b15" stop-opacity="0.388235" />
+    <stop offset="0.9" stop-color="#493715" stop-opacity="0.384314" />
+    <stop offset="0.92" stop-color="#453213" stop-opacity="0.376471" />
+    <stop offset="0.94" stop-color="#403010" stop-opacity="0.372549" />
+    <stop offset="0.96" stop-color="#3c2c0e" stop-opacity="0.364706" />
+    <stop offset="0.98" stop-color="#38270b" stop-opacity="0.356863" />
+    <stop offset="1" stop-color="#34260a" stop-opacity="0.352941" />
+</radialGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="44" y1="668" x2="44" y2="720" id="gradient10">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1330" y1="668" x2="1330" y2="720" id="gradient11">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1400" y1="238" x2="1400" y2="362" id="gradient12">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="1446" cy="280" r="80.6" fx="1446" fy="280" id="gradient13">
+    <stop offset="0" stop-color="#ffebb4" stop-opacity="0.352941" />
+    <stop offset="0.02" stop-color="#ffebb4" stop-opacity="0.345098" />
+    <stop offset="0.04" stop-color="#ffeab5" stop-opacity="0.337255" />
+    <stop offset="0.06" stop-color="#ffedb6" stop-opacity="0.329412" />
+    <stop offset="0.08" stop-color="#ffecb7" stop-opacity="0.321569" />
+    <stop offset="0.1" stop-color="#ffe9b3" stop-opacity="0.317647" />
+    <stop offset="0.12" stop-color="#ffecb5" stop-opacity="0.309804" />
+    <stop offset="0.14" stop-color="#ffebb6" stop-opacity="0.301961" />
+    <stop offset="0.16" stop-color="#ffeeb8" stop-opacity="0.294118" />
+    <stop offset="0.18" stop-color="#ffeeb6" stop-opacity="0.286275" />
+    <stop offset="0.2" stop-color="#ffeab5" stop-opacity="0.282353" />
+    <stop offset="0.22" stop-color="#ffe9b6" stop-opacity="0.27451" />
+    <stop offset="0.24" stop-color="#ffecb4" stop-opacity="0.266667" />
+    <stop offset="0.26" stop-color="#ffecb6" stop-opacity="0.258824" />
+    <stop offset="0.28" stop-color="#ffe7b4" stop-opacity="0.254902" />
+    <stop offset="0.3" stop-color="#ffebb6" stop-opacity="0.247059" />
+    <stop offset="0.32" stop-color="#ffeab4" stop-opacity="0.239216" />
+    <stop offset="0.34" stop-color="#ffe9b6" stop-opacity="0.231373" />
+    <stop offset="0.36" stop-color="#ffedb7" stop-opacity="0.223529" />
+    <stop offset="0.38" stop-color="#ffecb5" stop-opacity="0.215686" />
+    <stop offset="0.4" stop-color="#ffe7b3" stop-opacity="0.211765" />
+    <stop offset="0.42" stop-color="#ffebb5" stop-opacity="0.203922" />
+    <stop offset="0.44" stop-color="#ffebb8" stop-opacity="0.196078" />
+    <stop offset="0.46" stop-color="#ffefb5" stop-opacity="0.188235" />
+    <stop offset="0.48" stop-color="#ffe9b3" stop-opacity="0.184314" />
+    <stop offset="0.5" stop-color="#ffe8b5" stop-opacity="0.176471" />
+    <stop offset="0.52" stop-color="#ffe7b2" stop-opacity="0.168627" />
+    <stop offset="0.54" stop-color="#ffecb4" stop-opacity="0.160784" />
+    <stop offset="0.56" stop-color="#ffebb7" stop-opacity="0.152941" />
+    <stop offset="0.58" stop-color="#fff1ba" stop-opacity="0.145098" />
+    <stop offset="0.6" stop-color="#ffeab1" stop-opacity="0.141176" />
+    <stop offset="0.62" stop-color="#ffe9b4" stop-opacity="0.133333" />
+    <stop offset="0.64" stop-color="#ffefb7" stop-opacity="0.12549" />
+    <stop offset="0.66" stop-color="#ffeebb" stop-opacity="0.117647" />
+    <stop offset="0.68" stop-color="#ffedb6" stop-opacity="0.109804" />
+    <stop offset="0.7" stop-color="#ffe3b3" stop-opacity="0.105882" />
+    <stop offset="0.72" stop-color="#ffebb8" stop-opacity="0.0980392" />
+    <stop offset="0.74" stop-color="#ffe9b1" stop-opacity="0.0901961" />
+    <stop offset="0.76" stop-color="#fff3b6" stop-opacity="0.0823529" />
+    <stop offset="0.78" stop-color="#ffe6b3" stop-opacity="0.0784314" />
+    <stop offset="0.8" stop-color="#ffe3b8" stop-opacity="0.0705882" />
+    <stop offset="0.82" stop-color="#ffefaf" stop-opacity="0.0627451" />
+    <stop offset="0.84" stop-color="#ffedb6" stop-opacity="0.054902" />
+    <stop offset="0.86" stop-color="#ffeabf" stop-opacity="0.0470588" />
+    <stop offset="0.88" stop-color="#ffffb3" stop-opacity="0.0392157" />
+    <stop offset="0.9" stop-color="#ffe3aa" stop-opacity="0.0352941" />
+    <stop offset="0.92" stop-color="#ffdbb6" stop-opacity="0.027451" />
+    <stop offset="0.94" stop-color="#ffffcc" stop-opacity="0.0196078" />
+    <stop offset="0.96" stop-color="#ffffaa" stop-opacity="0.0117647" />
+    <stop offset="0.98" stop-color="#ff8080" stop-opacity="0.00784314" />
+    <stop offset="1" stop-color="#ffebb4" stop-opacity="0" />
+</radialGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1286" y1="320" x2="1286" y2="424" id="gradient14">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<radialGradient gradientUnits="userSpaceOnUse" cx="1322" cy="352" r="67.6" fx="1322" fy="352" id="gradient15">
+    <stop offset="0" stop-color="#ffebb4" stop-opacity="0.352941" />
+    <stop offset="0.02" stop-color="#ffebb4" stop-opacity="0.345098" />
+    <stop offset="0.04" stop-color="#ffeab5" stop-opacity="0.337255" />
+    <stop offset="0.06" stop-color="#ffedb6" stop-opacity="0.329412" />
+    <stop offset="0.08" stop-color="#ffecb7" stop-opacity="0.321569" />
+    <stop offset="0.1" stop-color="#ffe9b3" stop-opacity="0.317647" />
+    <stop offset="0.12" stop-color="#ffecb5" stop-opacity="0.309804" />
+    <stop offset="0.14" stop-color="#ffebb6" stop-opacity="0.301961" />
+    <stop offset="0.16" stop-color="#ffeeb8" stop-opacity="0.294118" />
+    <stop offset="0.18" stop-color="#ffeeb6" stop-opacity="0.286275" />
+    <stop offset="0.2" stop-color="#ffeab5" stop-opacity="0.282353" />
+    <stop offset="0.22" stop-color="#ffe9b6" stop-opacity="0.27451" />
+    <stop offset="0.24" stop-color="#ffecb4" stop-opacity="0.266667" />
+    <stop offset="0.26" stop-color="#ffecb6" stop-opacity="0.258824" />
+    <stop offset="0.28" stop-color="#ffe7b4" stop-opacity="0.254902" />
+    <stop offset="0.3" stop-color="#ffebb6" stop-opacity="0.247059" />
+    <stop offset="0.32" stop-color="#ffeab4" stop-opacity="0.239216" />
+    <stop offset="0.34" stop-color="#ffe9b6" stop-opacity="0.231373" />
+    <stop offset="0.36" stop-color="#ffedb7" stop-opacity="0.223529" />
+    <stop offset="0.38" stop-color="#ffecb5" stop-opacity="0.215686" />
+    <stop offset="0.4" stop-color="#ffe7b3" stop-opacity="0.211765" />
+    <stop offset="0.42" stop-color="#ffebb5" stop-opacity="0.203922" />
+    <stop offset="0.44" stop-color="#ffebb8" stop-opacity="0.196078" />
+    <stop offset="0.46" stop-color="#ffefb5" stop-opacity="0.188235" />
+    <stop offset="0.48" stop-color="#ffe9b3" stop-opacity="0.184314" />
+    <stop offset="0.5" stop-color="#ffe8b5" stop-opacity="0.176471" />
+    <stop offset="0.52" stop-color="#ffe7b2" stop-opacity="0.168627" />
+    <stop offset="0.54" stop-color="#ffecb4" stop-opacity="0.160784" />
+    <stop offset="0.56" stop-color="#ffebb7" stop-opacity="0.152941" />
+    <stop offset="0.58" stop-color="#fff1ba" stop-opacity="0.145098" />
+    <stop offset="0.6" stop-color="#ffeab1" stop-opacity="0.141176" />
+    <stop offset="0.62" stop-color="#ffe9b4" stop-opacity="0.133333" />
+    <stop offset="0.64" stop-color="#ffefb7" stop-opacity="0.12549" />
+    <stop offset="0.66" stop-color="#ffeebb" stop-opacity="0.117647" />
+    <stop offset="0.68" stop-color="#ffedb6" stop-opacity="0.109804" />
+    <stop offset="0.7" stop-color="#ffe3b3" stop-opacity="0.105882" />
+    <stop offset="0.72" stop-color="#ffebb8" stop-opacity="0.0980392" />
+    <stop offset="0.74" stop-color="#ffe9b1" stop-opacity="0.0901961" />
+    <stop offset="0.76" stop-color="#fff3b6" stop-opacity="0.0823529" />
+    <stop offset="0.78" stop-color="#ffe6b3" stop-opacity="0.0784314" />
+    <stop offset="0.8" stop-color="#ffe3b8" stop-opacity="0.0705882" />
+    <stop offset="0.82" stop-color="#ffefaf" stop-opacity="0.0627451" />
+    <stop offset="0.84" stop-color="#ffedb6" stop-opacity="0.054902" />
+    <stop offset="0.86" stop-color="#ffeabf" stop-opacity="0.0470588" />
+    <stop offset="0.88" stop-color="#ffffb3" stop-opacity="0.0392157" />
+    <stop offset="0.9" stop-color="#ffe3aa" stop-opacity="0.0352941" />
+    <stop offset="0.92" stop-color="#ffdbb6" stop-opacity="0.027451" />
+    <stop offset="0.94" stop-color="#ffffcc" stop-opacity="0.0196078" />
+    <stop offset="0.96" stop-color="#ffffaa" stop-opacity="0.0117647" />
+    <stop offset="0.98" stop-color="#ff8080" stop-opacity="0.00784314" />
+    <stop offset="1" stop-color="#ffebb4" stop-opacity="0" />
+</radialGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1389" y1="423" x2="1389" y2="489" id="gradient16">
+    <stop offset="0" stop-color="#ffd952" stop-opacity="1" />
+    <stop offset="1" stop-color="#b39731" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1389" y1="571" x2="1389" y2="637" id="gradient17">
+    <stop offset="0" stop-color="#ffd952" stop-opacity="1" />
+    <stop offset="1" stop-color="#b39731" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1315" y1="497" x2="1315" y2="563" id="gradient18">
+    <stop offset="0" stop-color="#ffd952" stop-opacity="1" />
+    <stop offset="1" stop-color="#b39731" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1463" y1="497" x2="1463" y2="563" id="gradient19">
+    <stop offset="0" stop-color="#ffd952" stop-opacity="1" />
+    <stop offset="1" stop-color="#b39731" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="408" y1="666" x2="408" y2="704" id="gradient20">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1024" y1="666" x2="1024" y2="704" id="gradient21">
+    <stop offset="0" stop-color="#9e7c32" stop-opacity="1" />
+    <stop offset="0.55" stop-color="#6c521c" stop-opacity="1" />
+    <stop offset="1" stop-color="#42300e" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="135.5" y1="111.628" x2="219.5" y2="184.372" id="gradient22">
+    <stop offset="0" stop-color="#eed080" stop-opacity="1" />
+    <stop offset="0.5" stop-color="#d6b052" stop-opacity="1" />
+    <stop offset="1" stop-color="#b08a34" stop-opacity="1" />
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" x1="1380.5" y1="111.628" x2="1464.5" y2="184.372" id="gradient23">
+    <stop offset="0" stop-color="#eed080" stop-opacity="1" />
+    <stop offset="0.5" stop-color="#d6b052" stop-opacity="1" />
+    <stop offset="1" stop-color="#b08a34" stop-opacity="1" />
+</linearGradient>
+</defs>
+<g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#000000" fill-opacity="0.431373" stroke="none" transform="matrix(1,0,0,1,0,8)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M0,54 C0,24.1766 24.1766,0 54,0 L301,0 C330.823,0 355,24.1766 355,54 L355,686 C355,715.823 330.823,740 301,740 L54,740 C24.1766,740 0,715.823 0,686 L0,54"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient1)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M0,54 C0,24.1766 24.1766,0 54,0 L301,0 C330.823,0 355,24.1766 355,54 L355,686 C355,715.823 330.823,740 301,740 L54,740 C24.1766,740 0,715.823 0,686 L0,54"/>
+</g>
+
+<g fill="none" stroke="#604510" stroke-opacity="1" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M0,54 C0,24.1766 24.1766,0 54,0 L301,0 C330.823,0 355,24.1766 355,54 L355,686 C355,715.823 330.823,740 301,740 L54,740 C24.1766,740 0,715.823 0,686 L0,54"/>
+</g>
+
+<g fill="url(#gradient2)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M14,56 C14,30.5949 34.5949,10 60,10 L295,10 C320.405,10 341,30.5949 341,56 L341,94 C341,119.405 320.405,140 295,140 L60,140 C34.5949,140 14,119.405 14,94 L14,56"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#000000" fill-opacity="0.431373" stroke="none" transform="matrix(1,0,0,1,0,8)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1245,54 C1245,24.1766 1269.18,0 1299,0 L1546,0 C1575.82,0 1600,24.1766 1600,54 L1600,686 C1600,715.823 1575.82,740 1546,740 L1299,740 C1269.18,740 1245,715.823 1245,686 L1245,54"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient3)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1245,54 C1245,24.1766 1269.18,0 1299,0 L1546,0 C1575.82,0 1600,24.1766 1600,54 L1600,686 C1600,715.823 1575.82,740 1546,740 L1299,740 C1269.18,740 1245,715.823 1245,686 L1245,54"/>
+</g>
+
+<g fill="none" stroke="#604510" stroke-opacity="1" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1245,54 C1245,24.1766 1269.18,0 1299,0 L1546,0 C1575.82,0 1600,24.1766 1600,54 L1600,686 C1600,715.823 1575.82,740 1546,740 L1299,740 C1269.18,740 1245,715.823 1245,686 L1245,54"/>
+</g>
+
+<g fill="url(#gradient4)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1259,56 C1259,30.5949 1279.59,10 1305,10 L1540,10 C1565.41,10 1586,30.5949 1586,56 L1586,94 C1586,119.405 1565.41,140 1540,140 L1305,140 C1279.59,140 1259,119.405 1259,94 L1259,56"/>
+</g>
+
+<g fill="url(#gradient5)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M353,37 C353,23.7452 363.745,13 377,13 L1223,13 C1236.25,13 1247,23.7452 1247,37 L1247,670 C1247,683.255 1236.25,694 1223,694 L377,694 C363.745,694 353,683.255 353,670 L353,37"/>
+</g>
+
+<g fill="#080a09" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<rect x="375" y="35" width="850" height="637"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.627451" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M30,36 C30,26.0589 38.0589,18 48,18 L307,18 C316.941,18 325,26.0589 325,36 L325,54 C325,63.9411 316.941,72 307,72 L48,72 C38.0589,72 30,63.9411 30,54 L30,36"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient6)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M30,36 C30,26.0589 38.0589,18 48,18 L307,18 C316.941,18 325,26.0589 325,36 L325,54 C325,63.9411 316.941,72 307,72 L48,72 C38.0589,72 30,63.9411 30,54 L30,36"/>
+</g>
+
+<g fill="none" stroke="#604510" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M30,36 C30,26.0589 38.0589,18 48,18 L307,18 C316.941,18 325,26.0589 325,36 L325,54 C325,63.9411 316.941,72 307,72 L48,72 C38.0589,72 30,63.9411 30,54 L30,36"/>
+</g>
+
+<g fill="none" stroke="#58400e" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="18" font-weight="700" font-style="normal" 
+>
+<text fill="#58400e" fill-opacity="1" stroke="none" xml:space="preserve" x="173" y="52" font-family="Segoe UI" font-size="18" font-weight="700" font-style="normal" 
+ >L</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.627451" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1275,36 C1275,26.0589 1283.06,18 1293,18 L1552,18 C1561.94,18 1570,26.0589 1570,36 L1570,54 C1570,63.9411 1561.94,72 1552,72 L1293,72 C1283.06,72 1275,63.9411 1275,54 L1275,36"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient7)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1275,36 C1275,26.0589 1283.06,18 1293,18 L1552,18 C1561.94,18 1570,26.0589 1570,36 L1570,54 C1570,63.9411 1561.94,72 1552,72 L1293,72 C1283.06,72 1275,63.9411 1275,54 L1275,36"/>
+</g>
+
+<g fill="none" stroke="#604510" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1275,36 C1275,26.0589 1283.06,18 1293,18 L1552,18 C1561.94,18 1570,26.0589 1570,36 L1570,54 C1570,63.9411 1561.94,72 1552,72 L1293,72 C1283.06,72 1275,63.9411 1275,54 L1275,36"/>
+</g>
+
+<g fill="none" stroke="#58400e" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="18" font-weight="700" font-style="normal" 
+>
+<text fill="#58400e" fill-opacity="1" stroke="none" xml:space="preserve" x="1416.5" y="52" font-family="Segoe UI" font-size="18" font-weight="700" font-style="normal" 
+ >R</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#543c0e" fill-opacity="0.745098" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M286,330 C286,389.647 237.647,438 178,438 C118.353,438 70,389.647 70,330 C70,270.353 118.353,222 178,222 C237.647,222 286,270.353 286,330 "/>
+</g>
+
+<g fill="url(#gradient8)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M286,330 C286,389.647 237.647,438 178,438 C118.353,438 70,389.647 70,330 C70,270.353 118.353,222 178,222 C237.647,222 286,270.353 286,330 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#584010" fill-opacity="0.745098" stroke="none" transform="matrix(1,0,0,1,0,5)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M100,561 L100.161,559.202 L100.626,557.511 L101.365,555.953 L102.352,554.557 L103.557,553.352 L104.953,552.365 L106.511,551.626 L108.202,551.161 L110,551 L151,551 L151,510 L151.161,508.202 L151.626,506.511 L152.365,504.953 L153.352,503.557 L154.557,502.352 L155.953,501.365 L157.511,500.626 L159.202,500.161 L161,500 L195,500 L196.798,500.161 L198.489,500.626 L200.047,501.365 L201.443,502.352 L202.648,503.557 L203.635,504.953 L204.374,506.511 L204.839,508.202 L205,510 L205,551 L246,551 L247.798,551.161 L249.489,551.626 L251.047,552.365 L252.443,553.352 L253.648,554.557 L254.635,555.953 L255.374,557.511 L255.839,559.202 L256,561 L256,595 L255.839,596.798 L255.374,598.489 L254.635,600.047 L253.648,601.443 L252.443,602.648 L251.047,603.635 L249.489,604.374 L247.798,604.839 L246,605 L205,605 L205,646 L204.839,647.798 L204.374,649.489 L203.635,651.047 L202.648,652.443 L201.443,653.648 L200.047,654.635 L198.489,655.374 L196.798,655.839 L195,656 L161,656 L159.202,655.839 L157.511,655.374 L155.953,654.635 L154.557,653.648 L153.352,652.443 L152.365,651.047 L151.626,649.489 L151.161,647.798 L151,646 L151,605 L110,605 L108.202,604.839 L106.511,604.374 L104.953,603.635 L103.557,602.648 L102.352,601.443 L101.365,600.047 L100.626,598.489 L100.161,596.798 L100,595 L100,561"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#6c521c" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M100,561 L100.161,559.202 L100.626,557.511 L101.365,555.953 L102.352,554.557 L103.557,553.352 L104.953,552.365 L106.511,551.626 L108.202,551.161 L110,551 L151,551 L151,510 L151.161,508.202 L151.626,506.511 L152.365,504.953 L153.352,503.557 L154.557,502.352 L155.953,501.365 L157.511,500.626 L159.202,500.161 L161,500 L195,500 L196.798,500.161 L198.489,500.626 L200.047,501.365 L201.443,502.352 L202.648,503.557 L203.635,504.953 L204.374,506.511 L204.839,508.202 L205,510 L205,551 L246,551 L247.798,551.161 L249.489,551.626 L251.047,552.365 L252.443,553.352 L253.648,554.557 L254.635,555.953 L255.374,557.511 L255.839,559.202 L256,561 L256,595 L255.839,596.798 L255.374,598.489 L254.635,600.047 L253.648,601.443 L252.443,602.648 L251.047,603.635 L249.489,604.374 L247.798,604.839 L246,605 L205,605 L205,646 L204.839,647.798 L204.374,649.489 L203.635,651.047 L202.648,652.443 L201.443,653.648 L200.047,654.635 L198.489,655.374 L196.798,655.839 L195,656 L161,656 L159.202,655.839 L157.511,655.374 L155.953,654.635 L154.557,653.648 L153.352,652.443 L152.365,651.047 L151.626,649.489 L151.161,647.798 L151,646 L151,605 L110,605 L108.202,604.839 L106.511,604.374 L104.953,603.635 L103.557,602.648 L102.352,601.443 L101.365,600.047 L100.626,598.489 L100.161,596.798 L100,595 L100,561"/>
+</g>
+
+<g fill="url(#gradient9)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M100,561 L100.161,559.202 L100.626,557.511 L101.365,555.953 L102.352,554.557 L103.557,553.352 L104.953,552.365 L106.511,551.626 L108.202,551.161 L110,551 L151,551 L151,510 L151.161,508.202 L151.626,506.511 L152.365,504.953 L153.352,503.557 L154.557,502.352 L155.953,501.365 L157.511,500.626 L159.202,500.161 L161,500 L195,500 L196.798,500.161 L198.489,500.626 L200.047,501.365 L201.443,502.352 L202.648,503.557 L203.635,504.953 L204.374,506.511 L204.839,508.202 L205,510 L205,551 L246,551 L247.798,551.161 L249.489,551.626 L251.047,552.365 L252.443,553.352 L253.648,554.557 L254.635,555.953 L255.374,557.511 L255.839,559.202 L256,561 L256,595 L255.839,596.798 L255.374,598.489 L254.635,600.047 L253.648,601.443 L252.443,602.648 L251.047,603.635 L249.489,604.374 L247.798,604.839 L246,605 L205,605 L205,646 L204.839,647.798 L204.374,649.489 L203.635,651.047 L202.648,652.443 L201.443,653.648 L200.047,654.635 L198.489,655.374 L196.798,655.839 L195,656 L161,656 L159.202,655.839 L157.511,655.374 L155.953,654.635 L154.557,653.648 L153.352,652.443 L152.365,651.047 L151.626,649.489 L151.161,647.798 L151,646 L151,605 L110,605 L108.202,604.839 L106.511,604.374 L104.953,603.635 L103.557,602.648 L102.352,601.443 L101.365,600.047 L100.626,598.489 L100.161,596.798 L100,595 L100,561"/>
+</g>
+
+<g fill="none" stroke="#42300e" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M100,561 L100.161,559.202 L100.626,557.511 L101.365,555.953 L102.352,554.557 L103.557,553.352 L104.953,552.365 L106.511,551.626 L108.202,551.161 L110,551 L151,551 L151,510 L151.161,508.202 L151.626,506.511 L152.365,504.953 L153.352,503.557 L154.557,502.352 L155.953,501.365 L157.511,500.626 L159.202,500.161 L161,500 L195,500 L196.798,500.161 L198.489,500.626 L200.047,501.365 L201.443,502.352 L202.648,503.557 L203.635,504.953 L204.374,506.511 L204.839,508.202 L205,510 L205,551 L246,551 L247.798,551.161 L249.489,551.626 L251.047,552.365 L252.443,553.352 L253.648,554.557 L254.635,555.953 L255.374,557.511 L255.839,559.202 L256,561 L256,595 L255.839,596.798 L255.374,598.489 L254.635,600.047 L253.648,601.443 L252.443,602.648 L251.047,603.635 L249.489,604.374 L247.798,604.839 L246,605 L205,605 L205,646 L204.839,647.798 L204.374,649.489 L203.635,651.047 L202.648,652.443 L201.443,653.648 L200.047,654.635 L198.489,655.374 L196.798,655.839 L195,656 L161,656 L159.202,655.839 L157.511,655.374 L155.953,654.635 L154.557,653.648 L153.352,652.443 L152.365,651.047 L151.626,649.489 L151.161,647.798 L151,646 L151,605 L110,605 L108.202,604.839 L106.511,604.374 L104.953,603.635 L103.557,602.648 L102.352,601.443 L101.365,600.047 L100.626,598.489 L100.161,596.798 L100,595 L100,561"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M44,684 C44,675.163 51.1634,668 60,668 L296,668 C304.837,668 312,675.163 312,684 L312,704 C312,712.837 304.837,720 296,720 L60,720 C51.1634,720 44,712.837 44,704 L44,684"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient10)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M44,684 C44,675.163 51.1634,668 60,668 L296,668 C304.837,668 312,675.163 312,684 L312,704 C312,712.837 304.837,720 296,720 L60,720 C51.1634,720 44,712.837 44,704 L44,684"/>
+</g>
+
+<g fill="none" stroke="#f4e2a8" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="20" font-weight="700" font-style="normal" 
+>
+<text fill="#f4e2a8" fill-opacity="1" stroke="none" xml:space="preserve" x="172" y="702.5" font-family="Segoe UI" font-size="20" font-weight="700" font-style="normal" 
+ >Z</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1330,684 C1330,675.163 1337.16,668 1346,668 L1514,668 C1522.84,668 1530,675.163 1530,684 L1530,704 C1530,712.837 1522.84,720 1514,720 L1346,720 C1337.16,720 1330,712.837 1330,704 L1330,684"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient11)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1330,684 C1330,675.163 1337.16,668 1346,668 L1514,668 C1522.84,668 1530,675.163 1530,684 L1530,704 C1530,712.837 1522.84,720 1514,720 L1346,720 C1337.16,720 1330,712.837 1330,704 L1330,684"/>
+</g>
+
+<g fill="none" stroke="#f4e2a8" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="17" font-weight="700" font-style="normal" 
+>
+<text fill="#f4e2a8" fill-opacity="1" stroke="none" xml:space="preserve" x="1404" y="701" font-family="Segoe UI" font-size="17" font-weight="700" font-style="normal" 
+ >START</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5c4410" fill-opacity="0.705882" stroke="none" transform="matrix(1,0,0,1,0,6)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1527,300 C1527,335.899 1497.9,365 1462,365 C1426.1,365 1397,335.899 1397,300 C1397,264.101 1426.1,235 1462,235 C1497.9,235 1527,264.101 1527,300 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient12)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1524,300 C1524,334.242 1496.24,362 1462,362 C1427.76,362 1400,334.242 1400,300 C1400,265.758 1427.76,238 1462,238 C1496.24,238 1524,265.758 1524,300 "/>
+</g>
+
+<g fill="url(#gradient13)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1524,300 C1524,334.242 1496.24,362 1462,362 C1427.76,362 1400,334.242 1400,300 C1400,265.758 1427.76,238 1462,238 C1496.24,238 1524,265.758 1524,300 "/>
+</g>
+
+<g fill="none" stroke="#f6e4aa" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="32" font-weight="700" font-style="normal" 
+>
+<text fill="#f6e4aa" fill-opacity="1" stroke="none" xml:space="preserve" x="1450.5" y="313.5" font-family="Segoe UI" font-size="32" font-weight="700" font-style="normal" 
+ >A</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5c4410" fill-opacity="0.705882" stroke="none" transform="matrix(1,0,0,1,0,6)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1393,372 C1393,402.376 1368.38,427 1338,427 C1307.62,427 1283,402.376 1283,372 C1283,341.624 1307.62,317 1338,317 C1368.38,317 1393,341.624 1393,372 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient14)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1390,372 C1390,400.719 1366.72,424 1338,424 C1309.28,424 1286,400.719 1286,372 C1286,343.281 1309.28,320 1338,320 C1366.72,320 1390,343.281 1390,372 "/>
+</g>
+
+<g fill="url(#gradient15)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1390,372 C1390,400.719 1366.72,424 1338,424 C1309.28,424 1286,400.719 1286,372 C1286,343.281 1309.28,320 1338,320 C1366.72,320 1390,343.281 1390,372 "/>
+</g>
+
+<g fill="none" stroke="#f6e4aa" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="28" font-weight="700" font-style="normal" 
+>
+<text fill="#f6e4aa" fill-opacity="1" stroke="none" xml:space="preserve" x="1329" y="383.5" font-family="Segoe UI" font-size="28" font-weight="700" font-style="normal" 
+ >B</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5e4410" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1457,456 C1457,475.33 1441.33,491 1422,491 C1402.67,491 1387,475.33 1387,456 C1387,436.67 1402.67,421 1422,421 C1441.33,421 1457,436.67 1457,456 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient16)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1455,456 C1455,474.225 1440.23,489 1422,489 C1403.77,489 1389,474.225 1389,456 C1389,437.775 1403.77,423 1422,423 C1440.23,423 1455,437.775 1455,456 "/>
+</g>
+
+<g fill="#583e0a" fill-opacity="0.823529" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422,445 L1411,463.7 L1433,463.7 L1422,445"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5e4410" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1457,604 C1457,623.33 1441.33,639 1422,639 C1402.67,639 1387,623.33 1387,604 C1387,584.67 1402.67,569 1422,569 C1441.33,569 1457,584.67 1457,604 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient17)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1455,604 C1455,622.225 1440.23,637 1422,637 C1403.77,637 1389,622.225 1389,604 C1389,585.775 1403.77,571 1422,571 C1440.23,571 1455,585.775 1455,604 "/>
+</g>
+
+<g fill="#583e0a" fill-opacity="0.823529" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422,615 L1411,596.3 L1433,596.3 L1422,615"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5e4410" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1383,530 C1383,549.33 1367.33,565 1348,565 C1328.67,565 1313,549.33 1313,530 C1313,510.67 1328.67,495 1348,495 C1367.33,495 1383,510.67 1383,530 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient18)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1381,530 C1381,548.225 1366.23,563 1348,563 C1329.77,563 1315,548.225 1315,530 C1315,511.775 1329.77,497 1348,497 C1366.23,497 1381,511.775 1381,530 "/>
+</g>
+
+<g fill="#583e0a" fill-opacity="0.823529" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1337,530 L1355.7,519 L1355.7,541 L1337,530"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="#5e4410" fill-opacity="0.666667" stroke="none" transform="matrix(1,0,0,1,0,4)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1531,530 C1531,549.33 1515.33,565 1496,565 C1476.67,565 1461,549.33 1461,530 C1461,510.67 1476.67,495 1496,495 C1515.33,495 1531,510.67 1531,530 "/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient19)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1529,530 C1529,548.225 1514.23,563 1496,563 C1477.77,563 1463,548.225 1463,530 C1463,511.775 1477.77,497 1496,497 C1514.23,497 1529,511.775 1529,530 "/>
+</g>
+
+<g fill="#583e0a" fill-opacity="0.823529" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="9" font-weight="400" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1507,530 L1488.3,519 L1488.3,541 L1507,530"/>
+</g>
+
+<g fill="none" stroke="#785816" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+<text fill="#785816" fill-opacity="1" stroke="none" xml:space="preserve" x="1417" y="536.5" font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+ >C</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.588235" stroke="none" transform="matrix(1,0,0,1,0,3)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M408,678 C408,671.373 413.373,666 420,666 L564,666 C570.627,666 576,671.373 576,678 L576,692 C576,698.627 570.627,704 564,704 L420,704 C413.373,704 408,698.627 408,692 L408,678"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient20)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M408,678 C408,671.373 413.373,666 420,666 L564,666 C570.627,666 576,671.373 576,678 L576,692 C576,698.627 570.627,704 564,704 L420,704 C413.373,704 408,698.627 408,692 L408,678"/>
+</g>
+
+<g fill="none" stroke="#eedaa0" stroke-opacity="1" stroke-width="3" stroke-linecap="round" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+<polyline fill="none" vector-effect="none" points="424,674 431,674 " />
+<polyline fill="none" vector-effect="none" points="424,674 424,681 " />
+<polyline fill="none" vector-effect="none" points="424,696 431,696 " />
+<polyline fill="none" vector-effect="none" points="424,696 424,688 " />
+<polyline fill="none" vector-effect="none" points="559,674 552,674 " />
+<polyline fill="none" vector-effect="none" points="559,674 559,681 " />
+<polyline fill="none" vector-effect="none" points="559,696 552,696 " />
+<polyline fill="none" vector-effect="none" points="559,696 559,688 " />
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="16" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="none" stroke="#684c12" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<text fill="#684c12" fill-opacity="1" stroke="none" xml:space="preserve" x="477" y="724" font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+ >MENÜ</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#604610" fill-opacity="0.588235" stroke="none" transform="matrix(1,0,0,1,0,3)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1024,678 C1024,671.373 1029.37,666 1036,666 L1180,666 C1186.63,666 1192,671.373 1192,678 L1192,692 C1192,698.627 1186.63,704 1180,704 L1036,704 C1029.37,704 1024,698.627 1024,692 L1024,678"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient21)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1024,678 C1024,671.373 1029.37,666 1036,666 L1180,666 C1186.63,666 1192,671.373 1192,678 L1192,692 C1192,698.627 1186.63,704 1180,704 L1036,704 C1029.37,704 1024,698.627 1024,692 L1024,678"/>
+</g>
+
+<g fill="none" stroke="#eedaa0" stroke-opacity="1" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1046,678 C1046,676.343 1047.34,675 1049,675 L1167,675 C1168.66,675 1170,676.343 1170,678 L1170,692 C1170,693.657 1168.66,695 1167,695 L1049,695 C1047.34,695 1046,693.657 1046,692 L1046,678"/>
+<polyline fill="none" vector-effect="none" points="1050,681 1166,681 " />
+<polyline fill="none" vector-effect="none" points="1108,681 1108,692 " />
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="none" stroke="#684c12" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<text fill="#684c12" fill-opacity="1" stroke="none" xml:space="preserve" x="1095.5" y="724" font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+ >SPIEL</text>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#60440e" fill-opacity="0.588235" stroke="none" transform="matrix(1,0,0,1,-2,-2)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M177.5,112.719 L157.76,146.909 L197.24,146.909 L177.5,112.719 M156.5,149.091 L136.76,183.281 L176.24,183.281 L156.5,149.091 M198.5,149.091 L178.76,183.281 L218.24,183.281 L198.5,149.091"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#fff6d0" fill-opacity="0.54902" stroke="none" transform="matrix(1,0,0,1,3,3)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M177.5,112.719 L157.76,146.909 L197.24,146.909 L177.5,112.719 M156.5,149.091 L136.76,183.281 L176.24,183.281 L156.5,149.091 M198.5,149.091 L178.76,183.281 L218.24,183.281 L198.5,149.091"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient22)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M177.5,112.719 L157.76,146.909 L197.24,146.909 L177.5,112.719 M156.5,149.091 L136.76,183.281 L176.24,183.281 L156.5,149.091 M198.5,149.091 L178.76,183.281 L218.24,183.281 L198.5,149.091"/>
+</g>
+
+<g fill="none" stroke="#785816" stroke-opacity="0.666667" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M177.5,112.719 L157.76,146.909 L197.24,146.909 L177.5,112.719 M156.5,149.091 L136.76,183.281 L176.24,183.281 L156.5,149.091 M198.5,149.091 L178.76,183.281 L218.24,183.281 L198.5,149.091"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#60440e" fill-opacity="0.588235" stroke="none" transform="matrix(1,0,0,1,-2,-2)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422.5,112.719 L1402.76,146.909 L1442.24,146.909 L1422.5,112.719 M1401.5,149.091 L1381.76,183.281 L1421.24,183.281 L1401.5,149.091 M1443.5,149.091 L1423.76,183.281 L1463.24,183.281 L1443.5,149.091"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="#fff6d0" fill-opacity="0.54902" stroke="none" transform="matrix(1,0,0,1,3,3)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422.5,112.719 L1402.76,146.909 L1442.24,146.909 L1422.5,112.719 M1401.5,149.091 L1381.76,183.281 L1421.24,183.281 L1401.5,149.091 M1443.5,149.091 L1423.76,183.281 L1463.24,183.281 L1443.5,149.091"/>
+</g>
+
+<g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+</g>
+
+<g fill="url(#gradient23)" stroke="none" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422.5,112.719 L1402.76,146.909 L1442.24,146.909 L1422.5,112.719 M1401.5,149.091 L1381.76,183.281 L1421.24,183.281 L1401.5,149.091 M1443.5,149.091 L1423.76,183.281 L1463.24,183.281 L1443.5,149.091"/>
+</g>
+
+<g fill="none" stroke="#785816" stroke-opacity="0.666667" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Segoe UI" font-size="10" font-weight="700" font-style="normal" 
+>
+<path vector-effect="none" fill-rule="evenodd" d="M1422.5,112.719 L1402.76,146.909 L1442.24,146.909 L1422.5,112.719 M1401.5,149.091 L1381.76,183.281 L1421.24,183.281 L1401.5,149.091 M1443.5,149.091 L1423.76,183.281 L1463.24,183.281 L1443.5,149.091"/>
+</g>
+</g>
+</svg>

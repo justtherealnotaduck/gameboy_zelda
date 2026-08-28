@@ -34,6 +34,15 @@
                overflow: hidden; }
   body.vollbild #unterteil { display: block; }
   #unterteil img { position: absolute; left: 0; width: 100%; pointer-events: none; }
+
+  /* Querformat: geteilter N64-Controller. Die Stickkappe ist ein eigenes
+     Element, damit sie dem Finger folgen kann - im SVG fehlt sie deshalb. */
+  #kappe { position: absolute; border-radius: 50%; pointer-events: none;
+           background: radial-gradient(circle at 34% 30%, #b28e3e, #604614);
+           box-shadow: 0 4px 10px rgba(70,50,12,.6),
+                       inset 0 -3px 8px rgba(40,28,6,.55),
+                       inset 0 3px 8px rgba(255,238,190,.35);
+           transition: none; }
   #bild { position: absolute; background: #090d0b; overflow: hidden; }
   #bild canvas, #bild video { width: 100% !important; height: 100% !important; display: block; }
   .knopf { position: absolute; border-radius: 12px; }
@@ -126,10 +135,14 @@ const TASTE = { B: 0, Y: 1, SELECT: 2, START: 3, UP: 4, DOWN: 5, LEFT: 6,
 // waeren sie unspielbar. Das C-Kreuz liegt beim N64-Kern auf dem rechten
 // Stick, Z auf L2.
 const N64_TASTE = { UP: 16, DOWN: 17, LEFT: 18, RIGHT: 19,
+                    DUP: 4, DDOWN: 5, DLEFT: 6, DRIGHT: 7,
                     CUP: 20, CDOWN: 21, CLEFT: 22, CRIGHT: 23, Z: 12 };
 
 let geo = null, aktuell = null, spiele = [], wahl = 0, laeuft = false;
 let vollbild = false, letzterPad = "gba", letzteBildart = "gb";
+// Ansicht fuer N64: quer als geteilter Controller oder hochkant im
+// SP-Gehaeuse. Die Wahl ueberlebt das Schliessen der App.
+let quer = localStorage.getItem("ansicht") === "quer";
 
 // --- Spieleliste im Geraet speichern ---------------------------------------
 // Die ROMs bleiben auf dem Telefon. Sie liegen in der Datenbank des Browsers,
@@ -194,7 +207,8 @@ function einpassen() {
   el.style.height = (geo.entwurf.h * s) + "px";
   // Im Vollbild bestimmt der Bildschirm die Masse (siehe Stilregeln), die
   // Aufteilung muss danach neu gerechnet werden.
-  if (vollbild) aufbauen(letzterPad, letzteBildart);
+  if (vollbild || (quer && letzterPad === "n64" && laeuft))
+    aufbauen(letzterPad, letzteBildart);
 }
 addEventListener("resize", einpassen);
 if (window.visualViewport) visualViewport.addEventListener("resize", einpassen);
@@ -212,7 +226,9 @@ function aufbauen(pad, bildart) {
   const svg = "gehaeuse-" + pad + ".svg";
   document.getElementById("gehaeuse").src = svg;
   document.querySelector("#unterteil img").src = svg;
-  document.querySelectorAll(".knopf, #dpad").forEach(e => e.remove());
+  document.querySelectorAll(".knopf, #dpad, #kappe").forEach(e => e.remove());
+  // Querformat nur fuer N64 und nur im Spiel - die Auswahl bleibt hochkant.
+  if (quer && pad === "n64" && laeuft) { aufbauenQuer(); return; }
   if (vollbild) { aufbauenVollbild(pad, bildart); return; }
   setzen(document.getElementById("bild"), geo.bild[bildart]);
   const geraet = document.getElementById("geraet");
@@ -234,6 +250,122 @@ function aufbauen(pad, bildart) {
     }
   }
   einpassen();
+}
+
+// --- Querformat: geteilter N64-Controller ----------------------------------
+// Ein SP-Gehaeuse hat nur ein Steuerkreuz. Die N64-Spiele steuern fast alles
+// ueber den Analogstick - quer ist Platz fuer einen echten, den man in jede
+// Richtung ziehen kann statt nur in vier.
+function aufbauenQuer() {
+  const q = geo.quer;
+  const geraet = document.getElementById("geraet");
+  const vb = window.visualViewport;
+  const bb = vb ? vb.width : innerWidth, bh = vb ? vb.height : innerHeight;
+  const s = Math.min(bb / q.entwurf.w, bh / q.entwurf.h);
+  geraet.style.width = (q.entwurf.w * s) + "px";
+  geraet.style.height = (q.entwurf.h * s) + "px";
+  document.getElementById("gehaeuse").src = "gehaeuse-n64quer.svg";
+  setzen(document.getElementById("bild"), q.bild);
+
+  for (const [name, r] of Object.entries(q.knoepfe)) {
+    if (name === "STICK") { stickBauen(r, q.stick); continue; }
+    if (name === "DPAD") {
+      const d = document.createElement("div");
+      d.id = "dpad"; setzen(d, r);
+      // Quer gibt es Stick UND Kreuz. Das Kreuz bleibt hier das echte
+      // Digitalkreuz des N64 - der Stick uebernimmt die analoge Rolle.
+      [["DUP", 25, 0], ["DDOWN", 25, 50], ["DLEFT", 0, 25], ["DRIGHT", 50, 25]]
+        .forEach(([richtung, x, y]) => {
+          const f = document.createElement("div");
+          f.className = "feld"; f.style.left = x + "%"; f.style.top = y + "%";
+          binden(f, richtung); d.appendChild(f);
+        });
+      geraet.appendChild(d);
+      continue;
+    }
+    const k = document.createElement("div");
+    k.className = "knopf"; setzen(k, r);
+    binden(k, name); geraet.appendChild(k);
+  }
+}
+
+function stickBauen(r, masse) {
+  const geraet = document.getElementById("geraet");
+  const feld = document.createElement("div");
+  feld.className = "knopf"; feld.id = "stickfeld"; setzen(feld, r);
+  const kappe = document.createElement("div");
+  kappe.id = "kappe";
+  const kb = masse.kappe * 2;                       // Durchmesser in Prozent
+  kappe.style.width = kb + "%";
+  kappe.style.paddingBottom = "0";
+  geraet.appendChild(feld);
+  geraet.appendChild(kappe);
+
+  const setzenKappe = (dx, dy) => {
+    const f = feld.getBoundingClientRect();
+    const g = geraet.getBoundingClientRect();
+    const durchmesser = (masse.kappe * 2 / 100) * g.width;
+    kappe.style.width = durchmesser + "px";
+    kappe.style.height = durchmesser + "px";
+    const spiel = f.width / 2 - durchmesser / 2;     // wie weit die Kappe darf
+    const mx = f.left - g.left + f.width / 2 + dx * spiel;
+    const my = f.top - g.top + f.height / 2 + dy * spiel;
+    kappe.style.left = (mx - durchmesser / 2) + "px";
+    kappe.style.top = (my - durchmesser / 2) + "px";
+  };
+  setzenKappe(0, 0);
+
+  let aktiv = null;
+  const auswerten = (px, py) => {
+    const f = feld.getBoundingClientRect();
+    let dx = (px - (f.left + f.width / 2)) / (f.width / 2);
+    let dy = (py - (f.top + f.height / 2)) / (f.height / 2);
+    const laenge = Math.hypot(dx, dy);
+    if (laenge > 1) { dx /= laenge; dy /= laenge; }   // im Kreis bleiben
+    setzenKappe(dx, dy);
+    analog(dx, dy);
+  };
+  const los = ev => {
+    ev.preventDefault();
+    const t = ev.touches ? ev.touches[0] : ev;
+    aktiv = true; auswerten(t.clientX, t.clientY);
+  };
+  const zieh = ev => {
+    if (!aktiv) return;
+    ev.preventDefault();
+    const t = ev.touches ? ev.touches[0] : ev;
+    auswerten(t.clientX, t.clientY);
+  };
+  const auf = ev => { if (!aktiv) return; ev.preventDefault(); aktiv = null;
+                      setzenKappe(0, 0); analog(0, 0); };
+  feld.addEventListener("touchstart", los, { passive: false });
+  feld.addEventListener("touchmove", zieh, { passive: false });
+  feld.addEventListener("touchend", auf, { passive: false });
+  feld.addEventListener("touchcancel", auf, { passive: false });
+  feld.addEventListener("mousedown", los);
+  addEventListener("mousemove", zieh);
+  addEventListener("mouseup", auf);
+}
+
+// Auslenkung an den Emulator: getrennte Achsen, Bereich bis 32767.
+function analog(dx, dy) {
+  const em = window.EJS_emulator;
+  if (!em || !em.gameManager) return;
+  const g = em.gameManager;
+  // Totzone: der Finger sitzt nie genau in der Mitte, sonst zieht das Spiel
+  // beim blossen Antippen schon leicht in eine Richtung (gemessen: 1,6 %).
+  const TOT = 0.08;
+  const w = v => {
+    const a = Math.min(1, Math.abs(v));
+    if (a < TOT) return 0;
+    return Math.round((a - TOT) / (1 - TOT) * 32767);
+  };
+  try {
+    g.simulateInput(0, 18, dx < 0 ? w(dx) : 0);      // links
+    g.simulateInput(0, 19, dx > 0 ? w(dx) : 0);      // rechts
+    g.simulateInput(0, 16, dy < 0 ? w(dy) : 0);      // hoch
+    g.simulateInput(0, 17, dy > 0 ? w(dy) : 0);      // runter
+  } catch (e) {}
 }
 
 function aufbauenVollbild(pad, bildart) {
@@ -286,10 +418,28 @@ function aufbauenVollbild(pad, bildart) {
   }
 }
 
+function ansichtUmschalten() {
+  if (letzterPad !== "n64") {
+    alert("Der geteilte Controller ist für Nintendo-64-Spiele gedacht.");
+    return;
+  }
+  quer = !quer;
+  localStorage.setItem("ansicht", quer ? "quer" : "hoch");
+  if (quer) { vollbild = false; document.body.classList.remove("vollbild"); }
+  beschriftungen();
+  aufbauen(letzterPad, letzteBildart);
+  menueUmschalten();
+}
+
+function beschriftungen() {
+  MENUE[3].text = vollbild ? "Vollbild aus" : "Vollbild";
+  MENUE[4].text = quer ? "Ansicht: Game Boy" : "Ansicht: N64-Controller";
+}
+
 function vollbildUmschalten() {
   vollbild = !vollbild;
   document.body.classList.toggle("vollbild", vollbild);
-  MENUE[3].text = vollbild ? "Vollbild aus" : "Vollbild";
+  beschriftungen();
   einpassen();
   aufbauen(letzterPad, letzteBildart);
   menueUmschalten();
@@ -428,7 +578,11 @@ function senden(name, gedrueckt) {
   if (!em || !em.gameManager) return;
   const nr = nummer(name);
   if (nr === undefined) return;
-  try { em.gameManager.simulateInput(0, nr, gedrueckt ? 1 : 0); } catch (e) {}
+  // Analogachsen (16-23) brauchen einen Ausschlag, keinen Ein/Aus-Wert: der
+  // Bereich geht bis 32767. Mit 1 stand der Stick praktisch still - Mario Kart
+  // liess sich fahren, aber nicht lenken.
+  const wert = gedrueckt ? (nr >= 16 && nr <= 23 ? 32767 : 1) : 0;
+  try { em.gameManager.simulateInput(0, nr, wert); } catch (e) {}
 }
 
 // --- Menue im Spiel: Spielstand sichern und laden --------------------------
@@ -442,11 +596,13 @@ const MENUE = [
   { text: "Spielstand laden", tun: () => document.getElementById("stand").click() },
   { text: "Zurück zur Auswahl", tun: zurueck },
   { text: "Vollbild", tun: () => vollbildUmschalten() },
+  { text: "Ansicht", tun: () => ansichtUmschalten() },
   { text: "Weiterspielen", tun: () => menueUmschalten() },
 ];
 
 function menueUmschalten() {
   menueOffen = !menueOffen;
+  beschriftungen();
   menueWahl = 0;
   zeichneMenue();
 }
