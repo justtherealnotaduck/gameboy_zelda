@@ -22,6 +22,18 @@
      der Fenster-App auch. */
   #geraet { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
   #gehaeuse { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* Vollbild: das Bild bekommt den ganzen Platz oben, darunter bleibt nur das
+     Unterteil des Geraets mit den Knoepfen stehen. Ein echtes Browser-Vollbild
+     gibt es auf dem iPhone nicht - und es waere hier auch nutzlos, weil dann
+     die Bedienung verschwinden wuerde. */
+  body.vollbild #geraet { left: 0; top: 0; transform: none;
+                          width: 100% !important; height: 100% !important; }
+  body.vollbild #gehaeuse { display: none; }
+  #unterteil { display: none; position: absolute; left: 0; bottom: 0; width: 100%;
+               overflow: hidden; }
+  body.vollbild #unterteil { display: block; }
+  #unterteil img { position: absolute; left: 0; width: 100%; pointer-events: none; }
   #bild { position: absolute; background: #090d0b; overflow: hidden; }
   #bild canvas, #bild video { width: 100% !important; height: 100% !important; display: block; }
   .knopf { position: absolute; border-radius: 12px; }
@@ -73,6 +85,7 @@
 
 <div id="geraet">
   <img id="gehaeuse" alt="">
+  <div id="unterteil"><img alt=""></div>
   <div id="bild">
     <div id="game"></div>
     <div id="start">
@@ -116,6 +129,7 @@ const N64_TASTE = { UP: 16, DOWN: 17, LEFT: 18, RIGHT: 19,
                     CUP: 20, CDOWN: 21, CLEFT: 22, CRIGHT: 23, Z: 12 };
 
 let geo = null, aktuell = null, spiele = [], wahl = 0, laeuft = false;
+let vollbild = false, letzterPad = "gba", letzteBildart = "gb";
 
 // --- Spieleliste im Geraet speichern ---------------------------------------
 // Die ROMs bleiben auf dem Telefon. Sie liegen in der Datenbank des Browsers,
@@ -178,6 +192,9 @@ function einpassen() {
   const el = document.getElementById("geraet");
   el.style.width = (geo.entwurf.w * s) + "px";
   el.style.height = (geo.entwurf.h * s) + "px";
+  // Im Vollbild bestimmt der Bildschirm die Masse (siehe Stilregeln), die
+  // Aufteilung muss danach neu gerechnet werden.
+  if (vollbild) aufbauen(letzterPad, letzteBildart);
 }
 addEventListener("resize", einpassen);
 if (window.visualViewport) visualViewport.addEventListener("resize", einpassen);
@@ -187,10 +204,17 @@ function setzen(el, r) {
   el.style.width = r.w + "%"; el.style.height = r.h + "%";
 }
 
+// Das Unterteil beginnt im Entwurfsraum bei y = 858 (unter dem Scharnier).
+const UNTERTEIL_Y = 858, UNTERTEIL_H = 1692 - 858;
+
 function aufbauen(pad, bildart) {
-  document.getElementById("gehaeuse").src = "gehaeuse-" + pad + ".svg";
-  setzen(document.getElementById("bild"), geo.bild[bildart]);
+  letzterPad = pad; letzteBildart = bildart;
+  const svg = "gehaeuse-" + pad + ".svg";
+  document.getElementById("gehaeuse").src = svg;
+  document.querySelector("#unterteil img").src = svg;
   document.querySelectorAll(".knopf, #dpad").forEach(e => e.remove());
+  if (vollbild) { aufbauenVollbild(pad, bildart); return; }
+  setzen(document.getElementById("bild"), geo.bild[bildart]);
   const geraet = document.getElementById("geraet");
   for (const [name, r] of Object.entries(geo.pads[pad].knoepfe)) {
     if (name === "DPAD") {
@@ -210,6 +234,65 @@ function aufbauen(pad, bildart) {
     }
   }
   einpassen();
+}
+
+function aufbauenVollbild(pad, bildart) {
+  const geraet = document.getElementById("geraet");
+  const breite = geraet.clientWidth, hoehe = geraet.clientHeight;
+
+  // Unterteil unten in Originalproportionen, der Rest gehoert dem Bild.
+  const unten = document.getElementById("unterteil");
+  const untenH = breite * UNTERTEIL_H / geo.entwurf.w;
+  unten.style.height = untenH + "px";
+  // Das SVG zeigt das ganze Geraet; hier soll nur das Unterteil zu sehen sein,
+  // also nach oben schieben, bis das Scharnier an der Oberkante sitzt.
+  const bildH = breite * geo.entwurf.h / geo.entwurf.w;
+  unten.querySelector("img").style.top = (-UNTERTEIL_Y / geo.entwurf.h * bildH) + "px";
+
+  // Spielbild: so gross wie moeglich in der Flaeche darueber, Format gewahrt.
+  const b = geo.bild[bildart];
+  const seiten = (b.w / 100 * geo.entwurf.w) / (b.h / 100 * geo.entwurf.h);
+  const platzH = hoehe - untenH;
+  let sb = breite, sh = breite / seiten;
+  if (sh > platzH) { sh = platzH; sb = platzH * seiten; }
+  const el = document.getElementById("bild");
+  el.style.left = ((breite - sb) / 2) + "px";
+  el.style.top = ((platzH - sh) / 2) + "px";
+  el.style.width = sb + "px";
+  el.style.height = sh + "px";
+
+  // Knoepfe auf das Unterteil legen - dieselbe Geometrie, nur anders gerechnet.
+  for (const [name, r] of Object.entries(geo.pads[pad].knoepfe)) {
+    const yD = r.y / 100 * geo.entwurf.h, hD = r.h / 100 * geo.entwurf.h;
+    const lage = { x: r.x, w: r.w,
+                   y: (yD - UNTERTEIL_Y) / UNTERTEIL_H * 100,
+                   h: hD / UNTERTEIL_H * 100 };
+    if (lage.y + lage.h <= 0) continue;          // liegt im Deckel
+    if (name === "DPAD") {
+      const d = document.createElement("div");
+      d.id = "dpad"; setzen(d, lage);
+      [["UP", 25, 0], ["DOWN", 25, 50], ["LEFT", 0, 25], ["RIGHT", 50, 25]]
+        .forEach(([richtung, x, y]) => {
+          const f = document.createElement("div");
+          f.className = "feld"; f.style.left = x + "%"; f.style.top = y + "%";
+          binden(f, richtung); d.appendChild(f);
+        });
+      unten.appendChild(d);
+    } else {
+      const k = document.createElement("div");
+      k.className = "knopf"; setzen(k, lage);
+      binden(k, name); unten.appendChild(k);
+    }
+  }
+}
+
+function vollbildUmschalten() {
+  vollbild = !vollbild;
+  document.body.classList.toggle("vollbild", vollbild);
+  MENUE[3].text = vollbild ? "Vollbild aus" : "Vollbild";
+  einpassen();
+  aufbauen(letzterPad, letzteBildart);
+  menueUmschalten();
 }
 
 // --- Auswahlbildschirm -----------------------------------------------------
@@ -358,6 +441,7 @@ const MENUE = [
   { text: "Spielstand sichern", tun: standSichern },
   { text: "Spielstand laden", tun: () => document.getElementById("stand").click() },
   { text: "Zurück zur Auswahl", tun: zurueck },
+  { text: "Vollbild", tun: () => vollbildUmschalten() },
   { text: "Weiterspielen", tun: () => menueUmschalten() },
 ];
 
