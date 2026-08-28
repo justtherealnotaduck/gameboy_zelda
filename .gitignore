@@ -1,0 +1,11 @@
+# ROMs gehoeren NICHT ins Repo - das waere oeffentliches Verbreiten
+# geschuetzter Spiele. Die App laedt sie vom Geraet, sie bleiben dort.
+*.gb
+*.gbc
+*.gba
+*.n64
+*.z64
+*.v64
+*.smc
+*.sfc
+*.nes

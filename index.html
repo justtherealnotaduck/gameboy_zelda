@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Game Boy">
+<meta name="theme-color" content="#12110f">
+<link rel="apple-touch-icon" sizes="180x180" href="symbol-180.png">
+<link rel="icon" href="symbol.png">
+<title>Game Boy Advance SP – Zelda Edition</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden; background: #12110f;
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    -webkit-user-select: none; user-select: none; touch-action: none;
+    overscroll-behavior: none;
+  }
+  /* Das Geraet behaelt sein Seitenverhaeltnis und wird eingepasst - wie in
+     der Fenster-App auch. */
+  #geraet { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  #gehaeuse { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  #bild { position: absolute; background: #090d0b; overflow: hidden; }
+  #bild canvas, #bild video { width: 100% !important; height: 100% !important; display: block; }
+  .knopf { position: absolute; border-radius: 12px; }
+  .knopf.gedrueckt { background: rgba(0,0,0,.28); }
+  #dpad { position: absolute; }
+  #dpad .feld { position: absolute; width: 50%; height: 50%; }
+
+  /* --- Auswahlbildschirm, dem der Fenster-App nachempfunden --- */
+  #start { position: absolute; inset: 0; display: flex; flex-direction: column;
+           color: #e4dcc2; padding: 3% 4% 2% 4%; }
+  #start h1 { font-size: clamp(9px, 2.7vw, 15px); letter-spacing: .16em; text-align: center;
+              color: #cea54e; margin: 0 0 2% 0; font-weight: 600; }
+  #liste { flex: 1 1 auto; min-height: 0; overflow-y: auto; list-style: none;
+           margin: 0; padding: 0; scrollbar-width: none; }
+  #liste::-webkit-scrollbar { display: none; }
+  #liste li { display: flex; align-items: center; gap: .5em; padding: .35em .5em;
+              border-radius: 8px; border: 2px solid transparent; }
+  #liste li.gewaehlt { background: rgba(196,158,60,.23); border-color: #e2c26c; }
+  #liste li .pfeil { color: #e8ca78; opacity: 0; font-size: clamp(8px, 2.4vw, 12px); }
+  #liste li.gewaehlt .pfeil { opacity: 1; }
+  #liste .titel { font-size: clamp(9px, 2.7vw, 14px); font-weight: 600; line-height: 1.2; }
+  #liste .zeile2 { font-size: clamp(7px, 2vw, 10px); color: #9b9078; }
+  #liste .neu .titel { color: #cea54e; }
+  #fuss { flex: 0 0 auto; text-align: center; font-size: clamp(6px, 1.8vw, 9px);
+          color: #8d846e; padding-top: 2%; line-height: 1.4; }
+  #datei { display: none; }
+  #ladebalken { text-align: center; font-size: clamp(8px, 2.4vw, 12px); color: #cea54e; }
+
+  /* EmulatorJS bringt auf Beruehrungsgeraeten eine eigene Bildschirmsteuerung
+     mit - roter Stick, A, B, Start - und legt sie ueber das Bild. Wir haben
+     ein gezeichnetes Gehaeuse, das braucht es nicht. */
+  .ejs_virtualGamepad_parent, .ejs_virtualGamepad_left, .ejs_virtualGamepad_right,
+  .ejs_menu_bar, .ejs_volume_parent, .ejs_context_menu { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="geraet">
+  <img id="gehaeuse" alt="">
+  <div id="bild">
+    <div id="game"></div>
+    <div id="start">
+      <h1>SPIEL WÄHLEN</h1>
+      <ul id="liste"></ul>
+      <div id="fuss">Steuerkreuz wählen · A startet<br>Power-Schalter: zurück zur Auswahl</div>
+      <div id="ladebalken"></div>
+    </div>
+  </div>
+</div>
+<input id="datei" type="file" multiple
+       accept=".gb,.gbc,.gba,.n64,.z64,.v64,.smc,.sfc,.nes">
+
+<script>
+// ---------------------------------------------------------------------------
+// Welches System steckt hinter welcher Dateiendung. "pad" entscheidet, welches
+// Gehaeuse gezeichnet wird - das N64-Gehaeuse hat zusaetzlich C-Kreuz und Z.
+// ---------------------------------------------------------------------------
+const SYSTEME = {
+  gb:  { kern: "gb",   pad: "gba", bild: "gb",  kurz: "Game Boy" },
+  gbc: { kern: "gb",   pad: "gba", bild: "gb",  kurz: "Game Boy Color" },
+  gba: { kern: "gba",  pad: "gba", bild: "gba", kurz: "Game Boy Advance" },
+  n64: { kern: "n64",  pad: "n64", bild: "n64", kurz: "Nintendo 64" },
+  z64: { kern: "n64",  pad: "n64", bild: "n64", kurz: "Nintendo 64" },
+  v64: { kern: "n64",  pad: "n64", bild: "n64", kurz: "Nintendo 64" },
+  smc: { kern: "snes", pad: "gba", bild: "gba", kurz: "Super Nintendo" },
+  sfc: { kern: "snes", pad: "gba", bild: "gba", kurz: "Super Nintendo" },
+  nes: { kern: "nes",  pad: "gba", bild: "gba", kurz: "NES" },
+};
+
+// RetroArch-Knopfnummern: 0-15 die Digitaltasten, 16-19 der linke Analogstick,
+// 20-23 der rechte.
+const TASTE = { B: 0, Y: 1, SELECT: 2, START: 3, UP: 4, DOWN: 5, LEFT: 6,
+                RIGHT: 7, A: 8, X: 9, L: 10, R: 11, L2: 12, R2: 13 };
+// Beim N64 wird das Steuerkreuz zum Analogstick - Ocarina of Time, Majora's
+// Mask und Mario Kart steuern praktisch nur darueber, mit dem Digitalkreuz
+// waeren sie unspielbar. Das C-Kreuz liegt beim N64-Kern auf dem rechten
+// Stick, Z auf L2.
+const N64_TASTE = { UP: 16, DOWN: 17, LEFT: 18, RIGHT: 19,
+                    CUP: 20, CDOWN: 21, CLEFT: 22, CRIGHT: 23, Z: 12 };
+
+let geo = null, aktuell = null, spiele = [], wahl = 0, laeuft = false;
+
+// --- Spieleliste im Geraet speichern ---------------------------------------
+// Die ROMs bleiben auf dem Telefon. Sie liegen in der Datenbank des Browsers,
+// werden nie hochgeladen und ueberstehen das Schliessen der App.
+function db() {
+  return new Promise((ok, fehler) => {
+    const a = indexedDB.open("gameboy-zelda", 1);
+    a.onupgradeneeded = () => a.result.createObjectStore("spiele", { keyPath: "id" });
+    a.onsuccess = () => ok(a.result);
+    a.onerror = () => fehler(a.error);
+  });
+}
+
+async function alleSpiele() {
+  const d = await db();
+  return new Promise(ok => {
+    const a = d.transaction("spiele").objectStore("spiele").getAll();
+    a.onsuccess = () => ok(a.result.sort((x, y) => x.name.localeCompare(y.name)));
+    a.onerror = () => ok([]);
+  });
+}
+
+async function merken(eintrag) {
+  const d = await db();
+  return new Promise(ok => {
+    const t = d.transaction("spiele", "readwrite");
+    t.objectStore("spiele").put(eintrag);
+    t.oncomplete = ok;
+  });
+}
+
+async function vergessen(id) {
+  const d = await db();
+  return new Promise(ok => {
+    const t = d.transaction("spiele", "readwrite");
+    t.objectStore("spiele").delete(id);
+    t.oncomplete = ok;
+  });
+}
+
+// --- Aufbau ----------------------------------------------------------------
+fetch("geometrie.json").then(r => r.json()).then(async d => {
+  geo = d;
+  aufbauen("gba", "gb");
+  spiele = await alleSpiele();
+  const direkt = new URLSearchParams(location.search).get("rom");
+  if (direkt) { starteFromUrl(direkt); return; }
+  const wieder = sessionStorage.getItem("starte");
+  if (wieder) { sessionStorage.removeItem("starte");
+                const s = spiele.find(x => x.id === wieder);
+                if (s) { starte(s); return; } }
+  zeichneListe();
+});
+
+function einpassen() {
+  if (!geo) return;
+  const vb = window.visualViewport;
+  const s = Math.min((vb ? vb.width : innerWidth) / geo.entwurf.w,
+                     (vb ? vb.height : innerHeight) / geo.entwurf.h);
+  const el = document.getElementById("geraet");
+  el.style.width = (geo.entwurf.w * s) + "px";
+  el.style.height = (geo.entwurf.h * s) + "px";
+}
+addEventListener("resize", einpassen);
+if (window.visualViewport) visualViewport.addEventListener("resize", einpassen);
+
+function setzen(el, r) {
+  el.style.left = r.x + "%"; el.style.top = r.y + "%";
+  el.style.width = r.w + "%"; el.style.height = r.h + "%";
+}
+
+function aufbauen(pad, bildart) {
+  document.getElementById("gehaeuse").src = "gehaeuse-" + pad + ".svg";
+  setzen(document.getElementById("bild"), geo.bild[bildart]);
+  document.querySelectorAll(".knopf, #dpad").forEach(e => e.remove());
+  const geraet = document.getElementById("geraet");
+  for (const [name, r] of Object.entries(geo.pads[pad].knoepfe)) {
+    if (name === "DPAD") {
+      const d = document.createElement("div");
+      d.id = "dpad"; setzen(d, r);
+      [["UP", 25, 0], ["DOWN", 25, 50], ["LEFT", 0, 25], ["RIGHT", 50, 25]]
+        .forEach(([richtung, x, y]) => {
+          const f = document.createElement("div");
+          f.className = "feld"; f.style.left = x + "%"; f.style.top = y + "%";
+          binden(f, richtung); d.appendChild(f);
+        });
+      geraet.appendChild(d);
+    } else {
+      const k = document.createElement("div");
+      k.className = "knopf"; setzen(k, r);
+      binden(k, name); geraet.appendChild(k);
+    }
+  }
+  einpassen();
+}
+
+// --- Auswahlbildschirm -----------------------------------------------------
+function zeichneListe() {
+  const ul = document.getElementById("liste");
+  ul.innerHTML = "";
+  const zeilen = spiele.map(s => ({
+    titel: s.name,
+    zeile2: (SYSTEME[s.endung] || {}).kurz + " · " + (s.groesse / 1048576).toFixed(1) + " MB",
+    neu: false, spiel: s,
+  }));
+  zeilen.push({ titel: "+  Spiel hinzufügen",
+                zeile2: "aus der Dateien-App", neu: true });
+  zeilen.forEach((z, i) => {
+    const li = document.createElement("li");
+    if (i === wahl) li.className = "gewaehlt";
+    if (z.neu) li.className += " neu";
+    li.innerHTML = '<span class="pfeil">▶</span><span><span class="titel">'
+      + z.titel.replace(/[<>&]/g, "") + '</span><br><span class="zeile2">'
+      + z.zeile2 + "</span></span>";
+    li.addEventListener("click", () => { wahl = i; zeichneListe(); waehlen(); });
+    ul.appendChild(li);
+  });
+  const g = ul.querySelector(".gewaehlt");
+  if (g) g.scrollIntoView({ block: "nearest" });
+}
+
+function bewegen(schritt) {
+  const anzahl = spiele.length + 1;
+  wahl = (wahl + schritt + anzahl) % anzahl;
+  zeichneListe();
+}
+
+function waehlen() {
+  if (wahl === spiele.length) { document.getElementById("datei").click(); return; }
+  starte(spiele[wahl]);
+}
+
+document.getElementById("datei").addEventListener("change", async ev => {
+  for (const datei of ev.target.files) {
+    const endung = datei.name.split(".").pop().toLowerCase();
+    if (!SYSTEME[endung]) { melden("Unbekannt: ." + endung); continue; }
+    await merken({ id: datei.name, name: datei.name.replace(/\.[^.]+$/, ""),
+                   endung: endung, groesse: datei.size, daten: datei });
+  }
+  spiele = await alleSpiele();
+  wahl = 0; zeichneListe(); melden("");
+  ev.target.value = "";
+});
+
+function melden(text) { document.getElementById("ladebalken").textContent = text; }
+
+// --- Spiel starten ---------------------------------------------------------
+function starte(eintrag) {
+  const sys = SYSTEME[eintrag.endung];
+  aktuell = sys; laeuft = true;
+  aufbauen(sys.pad, sys.bild);
+  document.getElementById("start").style.display = "none";
+  hochfahren(URL.createObjectURL(eintrag.daten), eintrag.name, sys);
+}
+
+function starteFromUrl(url) {
+  const endung = url.split("?")[0].split(".").pop().toLowerCase();
+  const sys = SYSTEME[endung];
+  if (!sys) { melden("Unbekannte Dateiendung: ." + endung); return; }
+  aktuell = sys; laeuft = true;
+  aufbauen(sys.pad, sys.bild);
+  document.getElementById("start").style.display = "none";
+  hochfahren(url, url.split("/").pop(), sys);
+}
+
+function hochfahren(url, name, sys) {
+  window.EJS_player = "#game";
+  window.EJS_core = sys.kern;
+  window.EJS_gameUrl = url;
+  window.EJS_gameName = name;
+  window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  window.EJS_startOnLoaded = true;
+  window.EJS_Buttons = { playPause: false, restart: false, settings: false,
+                         saveState: false, loadState: false, screenRecord: false,
+                         gamepad: false, cheat: false, volume: false,
+                         saveSavFiles: false, loadSavFiles: false,
+                         quickSave: false, quickLoad: false, screenshot: false,
+                         cacheManager: false, exitEmulation: false };
+  putzen();
+  const s = document.createElement("script");
+  s.src = window.EJS_pathtodata + "loader.js";
+  s.onerror = () => { document.getElementById("start").style.display = "";
+                      melden("Emulator konnte nicht geladen werden – Internet?"); };
+  document.body.appendChild(s);
+}
+
+function putzen() {
+  // EmulatorJS baut seine Bildschirmsteuerung nach jeder Groessenaenderung neu
+  // auf. Die Stilregeln oben fangen das ab, der Beobachter raeumt den Rest weg.
+  const weg = () => document.querySelectorAll(
+    ".ejs_virtualGamepad_parent, .ejs_virtualGamepad_left, .ejs_virtualGamepad_right")
+    .forEach(e => e.remove());
+  weg();
+  new MutationObserver(weg).observe(document.body, { childList: true, subtree: true });
+}
+
+// --- Knoepfe ---------------------------------------------------------------
+function nummer(name) {
+  if (aktuell && aktuell.pad === "n64" && name in N64_TASTE) return N64_TASTE[name];
+  return TASTE[name];
+}
+
+function senden(name, gedrueckt) {
+  if (!laeuft) {                       // Auswahlbildschirm
+    if (!gedrueckt) return;
+    if (name === "UP" || name === "LEFT") bewegen(-1);
+    else if (name === "DOWN" || name === "RIGHT") bewegen(1);
+    else if (name === "A" || name === "START") waehlen();
+    return;
+  }
+  if (name === "MENU") {               // Power-Schalter: zurueck zur Auswahl
+    if (gedrueckt) zurueck();
+    return;
+  }
+  const em = window.EJS_emulator;
+  if (!em || !em.gameManager) return;
+  const nr = nummer(name);
+  if (nr === undefined) return;
+  try { em.gameManager.simulateInput(0, nr, gedrueckt ? 1 : 0); } catch (e) {}
+}
+
+function zurueck() {
+  // EmulatorJS kann ein zweites Spiel nicht sauber in denselben Bereich laden,
+  // darum der Umweg ueber einen Neustart der Seite. Der Spielstand liegt in
+  // der Datenbank des Emulators und ueberlebt das.
+  try { window.EJS_emulator.gameManager.saveSaveFiles(); } catch (e) {}
+  setTimeout(() => location.href = location.pathname, 400);
+}
+
+function binden(el, name) {
+  const runter = ev => { ev.preventDefault(); el.classList.add("gedrueckt"); senden(name, true); };
+  const hoch = ev => { ev.preventDefault(); el.classList.remove("gedrueckt"); senden(name, false); };
+  el.addEventListener("touchstart", runter, { passive: false });
+  el.addEventListener("touchend", hoch, { passive: false });
+  el.addEventListener("touchcancel", hoch, { passive: false });
+  el.addEventListener("mousedown", runter);
+  el.addEventListener("mouseup", hoch);
+  el.addEventListener("mouseleave", hoch);
+}
+
+// Tastatur am Rechner - praktisch zum Pruefen
+addEventListener("keydown", e => {
+  const m = { ArrowUp: "UP", ArrowDown: "DOWN", ArrowLeft: "LEFT", ArrowRight: "RIGHT",
+              Enter: "START", x: "A", y: "B", z: "B" }[e.key];
+  if (m) { senden(m, true); e.preventDefault(); }
+});
+addEventListener("keyup", e => {
+  const m = { ArrowUp: "UP", ArrowDown: "DOWN", ArrowLeft: "LEFT", ArrowRight: "RIGHT",
+              Enter: "START", x: "A", y: "B", z: "B" }[e.key];
+  if (m) senden(m, false);
+});
+
+addEventListener("gesturestart", e => e.preventDefault());
+addEventListener("dblclick", e => e.preventDefault());
+</script>
+</body>
+</html>
