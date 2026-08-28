@@ -21,6 +21,39 @@ Unterstützt: `.gb`, `.gbc`, `.gba`, `.n64`, `.z64`, `.v64`, `.smc`, `.sfc`, `.n
 | A | Spiel starten |
 | Power-Schalter | zurück zur Auswahl |
 
+## PlayStation-Controller
+
+iOS koppelt DualShock 4 und DualSense selbst (Einstellungen → Bluetooth;
+am Controller **Share + PS** gedrückt halten, bis die Leiste blinkt). Safari
+meldet ihn im Standard-Layout, auch in der App vom Home-Bildschirm.
+
+Die eingebaute Controller-Belegung von EmulatorJS wird dabei gelöst, sonst
+kämen doppelte und widersprüchliche Eingaben an.
+
+| Controller | Nintendo 64 | Game Boy / GBC / GBA |
+|---|---|---|
+| **Linker Stick** | Analogstick | Steuerkreuz |
+| **Steuerkreuz** | Digitalkreuz (quer) bzw. Analogstick (hochkant) | Steuerkreuz |
+| **Rechter Stick** | C-Kreuz | – |
+| **Kreuz ✕** | A | A |
+| **Kreis ○** | B | B |
+| **Viereck □** | B | B |
+| **Dreieck △** | C-oben (Ego-Sicht in Zelda) | A |
+| **L1** | L | L |
+| **R1** | R | R |
+| **L2 / R2** | Z | L / R |
+| **Options** | Start | Start |
+| **Share** | – (N64 hat kein Select) | Select |
+| **L3 / PS** | Menü öffnen und schließen | Menü |
+| **Touchpad-Klick** | zurück zur Spielauswahl | zurück zur Spielauswahl |
+
+Im Auswahlbildschirm bewegen Steuerkreuz und linker Stick die Auswahl,
+**Kreuz ✕** oder **Options** startet.
+
+## Tastatur (am Rechner)
+
+Pfeiltasten = Steuerkreuz, **X** = A, **Y**/**Z** = B, **Enter** = Start.
+
 ## Aufbau
 
 Das Gehäuse und die Knopf-Geometrie werden aus `shell.py` der zugehörigen

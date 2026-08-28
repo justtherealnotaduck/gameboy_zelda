@@ -348,9 +348,15 @@ function stickBauen(r, masse) {
 }
 
 // Auslenkung an den Emulator: getrennte Achsen, Bereich bis 32767.
+let letzteAchsen = "";
 function analog(dx, dy) {
   const em = window.EJS_emulator;
   if (!em || !em.gameManager) return;
+  // Nur bei Aenderung schicken - der Controller wird 60-mal je Sekunde
+  // abgefragt, und jeder Aufruf sind vier Meldungen an den Emulator.
+  const jetzt = dx.toFixed(3) + "," + dy.toFixed(3);
+  if (jetzt === letzteAchsen) return;
+  letzteAchsen = jetzt;
   const g = em.gameManager;
   // Totzone: der Finger sitzt nie genau in der Mitte, sonst zieht das Spiel
   // beim blossen Antippen schon leicht in eine Richtung (gemessen: 1,6 %).
@@ -528,11 +534,30 @@ function hochfahren(url, name, sys) {
                          quickSave: false, quickLoad: false, screenshot: false,
                          cacheManager: false, exitEmulation: false };
   putzen();
+  // Sobald der Emulator steht, seine eigene Controller-Belegung loesen.
+  const loesen = setInterval(() => { if (padEntkoppeln()) clearInterval(loesen); }, 300);
+  setTimeout(() => clearInterval(loesen), 60000);
   const s = document.createElement("script");
   s.src = window.EJS_pathtodata + "loader.js";
   s.onerror = () => { document.getElementById("start").style.display = "";
                       melden("Emulator konnte nicht geladen werden – Internet?"); };
   document.body.appendChild(s);
+}
+
+// EmulatorJS wertet angeschlossene Controller selbst aus - mit eigener
+// Belegung. Zusammen mit unserer waeren das doppelte und teils
+// widerspruechliche Eingaben (nachgemessen: fremde Achsenwerte auf 17 und 23).
+// Seine Zuordnung steht in controls[spieler][knopf].value2; ohne die greift
+// nur noch unsere. Die Tastatur (value) bleibt unberuehrt.
+function padEntkoppeln() {
+  const em = window.EJS_emulator;
+  if (!em || !em.controls) return false;
+  for (const spieler of Object.values(em.controls)) {
+    for (const knopf of Object.values(spieler)) {
+      if (knopf && knopf.value2 !== undefined) knopf.value2 = "";
+    }
+  }
+  return true;
 }
 
 function putzen() {
@@ -693,6 +718,98 @@ addEventListener("keyup", e => {
               Enter: "START", x: "A", y: "B", z: "B" }[e.key];
   if (m) senden(m, false);
 });
+
+// --- PlayStation-Controller (und jeder andere Gamepad) ---------------------
+// iOS koppelt DualShock 4 und DualSense seit iOS 13 selbst; Safari meldet sie
+// ueber die Gamepad-Schnittstelle im Standard-Layout. Die Nummern unten sind
+// dieses Layout, nicht Sony-eigene Zaehlung.
+const PAD = {
+  0: "KREUZ", 1: "KREIS", 2: "VIERECK", 3: "DREIECK",
+  4: "L1", 5: "R1", 6: "L2", 7: "R2",
+  8: "SHARE", 9: "OPTIONS", 10: "L3", 11: "R3",
+  12: "OBEN", 13: "UNTEN", 14: "LINKS", 15: "RECHTS",
+  16: "PS", 17: "TOUCHPAD",
+};
+
+// Welcher Knopf des Controllers loest welchen Knopf des Geraets aus.
+// Getrennt nach System, weil ein N64 kein SELECT hat und ein Game Boy kein Z.
+function padBelegung() {
+  const n64 = aktuell && aktuell.pad === "n64";
+  const digitalkreuz = n64 && quer;      // quer gibt es Stick UND Kreuz
+  return {
+    KREUZ: "A",
+    KREIS: "B",
+    VIERECK: n64 ? "B" : "B",            // zweite Taste fuer denselben Knopf
+    DREIECK: n64 ? "CUP" : "A",
+    L1: "L", R1: "R",
+    L2: n64 ? "Z" : "L", R2: n64 ? "Z" : "R",
+    OPTIONS: "START",
+    SHARE: n64 ? null : "SELECT",
+    OBEN: digitalkreuz ? "DUP" : "UP",
+    UNTEN: digitalkreuz ? "DDOWN" : "DOWN",
+    LINKS: digitalkreuz ? "DLEFT" : "LEFT",
+    RECHTS: digitalkreuz ? "DRIGHT" : "RIGHT",
+    L3: "MENU",                          // Menue oeffnen und schliessen
+    TOUCHPAD: "SPIEL",                   // zurueck zur Spielauswahl
+    PS: "MENU",
+  };
+}
+
+const padStand = {};                     // was zuletzt gedrueckt war
+let padDa = false;
+
+addEventListener("gamepadconnected", ev => {
+  padDa = true;
+  melden("Controller verbunden: " + ev.gamepad.id.slice(0, 28));
+  setTimeout(() => melden(""), 4000);
+});
+addEventListener("gamepaddisconnected", () => { padDa = false; melden(""); });
+
+function padLesen() {
+  requestAnimationFrame(padLesen);
+  const pads = navigator.getGamepads ? navigator.getGamepads() : [];
+  const pad = [...pads].find(p => p);
+  if (!pad) return;
+  padDa = true;
+  const belegung = padBelegung();
+
+  // Knoepfe
+  pad.buttons.forEach((b, i) => {
+    const name = PAD[i];
+    if (!name) return;
+    const ziel = belegung[name];
+    if (!ziel) return;
+    const gedrueckt = b.pressed || b.value > 0.5;
+    if (padStand[name] === gedrueckt) return;
+    padStand[name] = gedrueckt;
+    senden(ziel, gedrueckt);
+  });
+
+  // Linker Stick: beim N64 der Analogstick, sonst das Steuerkreuz
+  const [x, y] = [pad.axes[0] || 0, pad.axes[1] || 0];
+  if (aktuell && aktuell.pad === "n64" && laeuft) {
+    analog(x, y);
+  } else {
+    richtungAusAchse("UP", y < -0.5); richtungAusAchse("DOWN", y > 0.5);
+    richtungAusAchse("LEFT", x < -0.5); richtungAusAchse("RIGHT", x > 0.5);
+  }
+
+  // Rechter Stick: beim N64 das C-Kreuz
+  if (aktuell && aktuell.pad === "n64" && laeuft) {
+    const rx = pad.axes[2] || 0, ry = pad.axes[3] || 0;
+    richtungAusAchse("CUP", ry < -0.5); richtungAusAchse("CDOWN", ry > 0.5);
+    richtungAusAchse("CLEFT", rx < -0.5); richtungAusAchse("CRIGHT", rx > 0.5);
+  }
+}
+
+function richtungAusAchse(name, gedrueckt) {
+  const schluessel = "achse-" + name;
+  if (padStand[schluessel] === gedrueckt) return;
+  padStand[schluessel] = gedrueckt;
+  senden(name, gedrueckt);
+}
+
+requestAnimationFrame(padLesen);
 
 addEventListener("gesturestart", e => e.preventDefault());
 addEventListener("dblclick", e => e.preventDefault());
