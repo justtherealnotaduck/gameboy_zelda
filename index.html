@@ -647,11 +647,38 @@ document.getElementById("datei").addEventListener("change", async ev => {
   for (const datei of ev.target.files) {
     const endung = datei.name.split(".").pop().toLowerCase();
     if (!SYSTEME[endung]) { melden("Unbekannt: ." + endung); continue; }
-    await merken({ id: datei.name, name: datei.name.replace(/\.[^.]+$/, ""),
-                   endung: endung, groesse: datei.size, daten: datei });
+    const mb = (datei.size / 1048576).toFixed(0);
+    melden("Speichere " + mb + " MB …");
+    try {
+      await merken({ id: datei.name, name: datei.name.replace(/\.[^.]+$/, ""),
+                     endung: endung, groesse: datei.size, daten: datei });
+    } catch (e) {
+      melden("Speichern fehlgeschlagen: " + (e.message || e));
+      continue;
+    }
+    // Sofort nachlesen, was wirklich in der Datenbank steht. Bei grossen
+    // Dateien ist genau das die Frage - und es jetzt zu wissen ist besser,
+    // als es beim Starten zu merken.
+    melden("Prüfe " + mb + " MB …");
+    try {
+      const alle = await alleSpiele();
+      const abgelegt = alle.find(x => x.id === datei.name);
+      const blob = abgelegt && abgelegt.daten;
+      if (!blob) throw new Error("nicht wiedergefunden");
+      let gelesen = 0;
+      const strom = blob.stream().getReader();
+      for (;;) { const { done, value } = await strom.read();
+                 if (done) break; gelesen += value.length; }
+      melden(gelesen === datei.size
+        ? "Gespeichert und geprüft: " + mb + " MB vollständig"
+        : "ACHTUNG: nur " + (gelesen / 1048576).toFixed(0) + " von " + mb
+          + " MB lesbar – die Datei ist unvollständig");
+    } catch (e) {
+      melden("Prüfen fehlgeschlagen: " + (e.message || e));
+    }
   }
   spiele = await alleSpiele();
-  wahl = 0; zeichneListe(); melden("");
+  wahl = 0; zeichneListe();
   ev.target.value = "";
 });
 
