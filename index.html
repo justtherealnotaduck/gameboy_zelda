@@ -494,6 +494,8 @@ function zeichneListe() {
                 zeile2: "aus der Dateien-App", neu: true });
   zeilen.push({ titel: "Diagnose",
                 zeile2: "prüft, woran PSP und DS scheitern", neu: true });
+  zeilen.push({ titel: "Speichertest",
+                zeile2: "misst, wie groß ein Spiel höchstens sein darf", neu: true });
   zeilen.forEach((z, i) => {
     const li = document.createElement("li");
     if (i === wahl) li.className = "gewaehlt";
@@ -509,7 +511,7 @@ function zeichneListe() {
 }
 
 function bewegen(schritt) {
-  const anzahl = spiele.length + 2;      // plus Hinzufuegen und Diagnose
+  const anzahl = spiele.length + 3;      // plus Hinzufuegen, Diagnose, Speichertest
   wahl = (wahl + schritt + anzahl) % anzahl;
   zeichneListe();
 }
@@ -517,7 +519,48 @@ function bewegen(schritt) {
 function waehlen() {
   if (wahl === spiele.length) { document.getElementById("datei").click(); return; }
   if (wahl === spiele.length + 1) { diagnose(); return; }
+  if (wahl === spiele.length + 2) { speichertest(); return; }
   starte(spiele[wahl]);
+}
+
+// Misst, wieviel Arbeitsspeicher der Browser dieser Seite tatsaechlich gibt.
+// Der Emulator laedt ein Abbild vollstaendig in den Speicher; ob ein bestimmtes
+// Spiel passt, ist damit keine Vermutung mehr, sondern eine Zahl. Es wird
+// aufsteigend belegt und jede Seite einmal beschrieben - nur reservieren
+// wuerde nichts beweisen, weil der Speicher erst beim Schreiben wirklich
+// gebraucht wird.
+async function speichertest() {
+  const ul = document.getElementById("liste");
+  const zeile = (was, wert) => '<li><span><span class="titel">' + was
+    + '</span><br><span class="zeile2">' + wert + "</span></span></li>";
+  let groesste = 0, gescheitert = "";
+  const ergebnisse = [];
+  for (const mb of [256, 512, 768, 1024, 1280, 1536]) {
+    ul.innerHTML = zeile("Teste " + mb + " MB …", "kann einen Moment dauern");
+    await new Promise(r => setTimeout(r, 120));
+    try {
+      const puffer = new ArrayBuffer(mb * 1048576);
+      const sicht = new Uint8Array(puffer);
+      for (let i = 0; i < sicht.length; i += 65536) sicht[i] = 1;   // wirklich belegen
+      groesste = mb;
+      ergebnisse.push([mb + " MB", "geht"]);
+    } catch (e) {
+      gescheitert = e.name || String(e);
+      ergebnisse.push([mb + " MB", "scheitert (" + gescheitert + ")"]);
+      break;
+    }
+    await new Promise(r => setTimeout(r, 200));
+  }
+  const spiel = spiele.length
+    ? spiele.reduce((a, b) => (a.groesse > b.groesse ? a : b)) : null;
+  ergebnisse.push(["Größtes am Stück", groesste + " MB"]);
+  if (spiel) {
+    const mb = Math.round(spiel.groesse / 1048576);
+    ergebnisse.push([mb + " MB großes Spiel",
+                     mb <= groesste ? "sollte passen" : "passt NICHT in den Speicher"]);
+  }
+  ergebnisse.push(["Zurück", "SPIEL-Knopf oder Seite neu laden"]);
+  ul.innerHTML = ergebnisse.map(([a, b]) => zeile(a, b)).join("");
 }
 
 // Sagt in Klartext, was fuer PSP und DS fehlt. Ohne das bleibt bei einem
@@ -635,10 +678,10 @@ function hochfahren(url, name, sys, kennung, groesse) {
   // coi-serviceworker.js weiter oben.
   window.EJS_threads = (sys.kern === "psp" || sys.kern === "nds");
   // Der Emulator laedt das Abbild vollstaendig in den Arbeitsspeicher - er
-  // kann nicht wie eine echte PSP stueckweise von der Disc lesen. Safari gibt
-  // einer Seite davon deutlich weniger als ein Gigabyte. Gemessen an GTA
-  // Liberty City Stories mit 1197 MB: der Ladevorgang bricht ab, EmulatorJS
-  // meldet dann nur "Network Error".
+  // kann nicht wie eine echte PSP stueckweise von der Disc lesen. Wieviel eine
+  // Seite bekommt, sagt der Speichertest im Auswahlbildschirm. Reicht es
+  // nicht, bricht der Ladevorgang ab und EmulatorJS meldet nur
+  // "Network Error".
   if (sys.kern === "psp" && groesseMB > 700) {
     melden("Achtung: " + groesseMB + " MB. Über etwa 700 MB reicht der "
            + "Speicher auf dem iPhone meist nicht – eine .cso-Fassung ist "
