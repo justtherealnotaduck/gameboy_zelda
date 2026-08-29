@@ -121,8 +121,14 @@
 // Gehaeuse gezeichnet wird - das N64-Gehaeuse hat zusaetzlich C-Kreuz und Z.
 // ---------------------------------------------------------------------------
 const SYSTEME = {
-  gb:  { kern: "gb",   pad: "gba", bild: "gb",  kurz: "Game Boy" },
-  gbc: { kern: "gb",   pad: "gba", bild: "gb",  kurz: "Game Boy Color" },
+  // Game Boy laeuft ueber mGBA, nicht ueber gambatte: auf dem iPhone hat
+  // gambatte jedes Spiel beim Start weggerissen (Safari verwarf den Prozess,
+  // die Seite kam einfach neu). Nachgemessen ist es der Kern und nicht das
+  // Spiel - Link's Awakening und Oracle of Seasons scheiterten beide, ein
+  // NES-Spiel im selben Gehaeuse lief. mGBA spielt Game Boy und Color mit.
+  // Das Bild bleibt das kleine Game-Boy-Format.
+  gb:  { kern: "gba",  pad: "gba", bild: "gb",  kurz: "Game Boy", vollerName: true },
+  gbc: { kern: "gba",  pad: "gba", bild: "gb",  kurz: "Game Boy Color", vollerName: true },
   gba: { kern: "gba",  pad: "gba", bild: "gba", kurz: "Game Boy Advance" },
   n64: { kern: "n64",  pad: "n64", bild: "n64", kurz: "Nintendo 64" },
   z64: { kern: "n64",  pad: "n64", bild: "n64", kurz: "Nintendo 64" },
@@ -140,10 +146,10 @@ const SYSTEME = {
   // braucht also keine Abschottung, keinen Service Worker und kein Neuladen.
   // Ein Spiel liegt als Abbild (.chd) oder als Inhaltsverzeichnis (.cue, .m3u)
   // mit den Spuren daneben vor; .bin allein ist die reine Datenspur.
-  cue: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony" },
-  bin: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony" },
-  chd: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony" },
-  m3u: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony" },
+  cue: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony", vollerName: true },
+  bin: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony", vollerName: true },
+  chd: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony", vollerName: true },
+  m3u: { kern: "psx",  pad: "n64", bild: "n64", kurz: "PlayStation", tasten: "sony", vollerName: true },
   // Nintendo DS - unter anderem GTA Chinatown Wars, das in Liberty City spielt
   nds: { kern: "nds",  pad: "gba", bild: "ds",  kurz: "Nintendo DS" },
 };
@@ -729,6 +735,7 @@ async function diagnose() {
     ["blob:-Adresse abrufen", blobweg],
     ["Speicher", platz],
     ["Letzte Fehler", fehlerLog.length ? fehlerLog.slice(-3).join(" | ") : "keine"],
+    ["Abgebrochener Start", spurLesen()],
   ];
   // In die Zwischenablage legen: das Ergebnis ist laenger als der Bildschirm,
   // und abgetippte oder abgefilmte Diagnosen kosten beide Seiten Zeit.
@@ -829,12 +836,12 @@ function starte(eintrag) {
   aufbauen(sys.pad, sys.bild);
   document.getElementById("start").style.display = "none";
   // Eine blob:-Adresse traegt keine Dateiendung. EmulatorJS nimmt dann den
-  // Namen als Dateinamen - und der PlayStation-Kern erkennt eine .chd nur an
-  // genau dieser Endung; ohne sie liest er das Abbild als rohe Datenspur und
-  // scheitert. Darum bekommt er dort den vollen Dateinamen (die Kennung).
-  // Die anderen Systeme behalten den gekuerzten Namen: er bestimmt auch, wo
-  // die Spielstaende liegen, und bestehende sollen nicht verwaisen.
-  const ejsName = sys.kern === "psx" ? eintrag.id : eintrag.name;
+  // Namen als Dateinamen - und mancher Kern erkennt das Format nur daran: die
+  // .chd der PlayStation etwa, oder ob mGBA ein Game-Boy-Abbild vor sich hat.
+  // Diese Systeme bekommen darum den vollen Dateinamen (die Kennung). Die
+  // uebrigen behalten den gekuerzten: er bestimmt auch, wo die Spielstaende
+  // liegen, und bestehende sollen nicht verwaisen.
+  const ejsName = sys.vollerName ? eintrag.id : eintrag.name;
   hochfahren(URL.createObjectURL(eintrag.daten), ejsName, sys, eintrag.id,
             eintrag.groesse);
 }
@@ -894,6 +901,7 @@ function hochfahren(url, name, sys, kennung, groesse) {
                          quickSave: false, quickLoad: false, screenshot: false,
                          cacheManager: false, exitEmulation: false };
   putzen();
+  spurLegen(name, sys.kern, groesseMB);
   // Sobald der Emulator steht, seine eigene Controller-Belegung loesen.
   const loesen = setInterval(() => { if (padEntkoppeln()) clearInterval(loesen); }, 300);
   setTimeout(() => clearInterval(loesen), 60000);
@@ -902,6 +910,33 @@ function hochfahren(url, name, sys, kennung, groesse) {
   s.onerror = () => { document.getElementById("start").style.display = "";
                       melden("Emulator konnte nicht geladen werden – Internet?"); };
   document.body.appendChild(s);
+}
+
+// Wirft Safari den Prozess weg - bei Speichermangel etwa -, ist die Seite
+// einfach neu da: kein Fehler, kein Eintrag im fehlerLog, nichts. Darum wird
+// vor dem Start eine Spur abgelegt, die das ueberlebt, und erst geloescht,
+// wenn das Spiel eine Weile wirklich lief. Liegt sie beim naechsten Start
+// noch da, ist genau dazwischen etwas gestorben - und die Diagnose sagt, bei
+// welchem Spiel.
+const SPUR = "letzterStart";
+function spurLegen(name, kern, groesseMB) {
+  try {
+    localStorage.setItem(SPUR, JSON.stringify(
+      { name: name, kern: kern, mb: groesseMB || 0, zeit: new Date().toISOString() }));
+  } catch (e) {}
+  // 20 Sekunden: laenger als jeder normale Ladevorgang, kurz genug, dass ein
+  // Absturz beim Spielen noch hineinfaellt.
+  setTimeout(() => { try { localStorage.removeItem(SPUR); } catch (e) {} }, 20000);
+}
+
+function spurLesen() {
+  try {
+    const roh = localStorage.getItem(SPUR);
+    if (!roh) return "keiner – der letzte Start lief durch";
+    const d = JSON.parse(roh);
+    return "ABGEBROCHEN: " + d.name + " (" + d.kern
+           + (d.mb ? ", " + d.mb + " MB" : "") + ") am " + d.zeit;
+  } catch (e) { return "nicht lesbar (" + (e.message || e) + ")"; }
 }
 
 // EmulatorJS wertet angeschlossene Controller selbst aus - mit eigener
@@ -1063,6 +1098,9 @@ function zurueck() {
   // darum der Umweg ueber einen Neustart der Seite. Der Spielstand liegt in
   // der Datenbank des Emulators und ueberlebt das.
   try { window.EJS_emulator.gameManager.saveSaveFiles(); } catch (e) {}
+  // Selbst zurueckgegangen ist kein Absturz - die Spur darf nicht liegen
+  // bleiben, sonst meldet die Diagnose einen Abbruch, den es nie gab.
+  try { localStorage.removeItem(SPUR); } catch (e) {}
   setTimeout(() => location.href = location.pathname, 400);
 }
 
