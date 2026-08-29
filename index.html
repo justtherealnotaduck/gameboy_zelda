@@ -551,13 +551,29 @@ async function speichertest() {
     }
     await new Promise(r => setTimeout(r, 200));
   }
+  // Der Emulator ist WebAssembly, und dessen Speicher ist etwas anderes als
+  // ein gewoehnlicher Puffer - auf iOS ist er deutlich enger begrenzt. Genau
+  // dieser Wert entscheidet, wie gross ein Abbild sein darf.
+  ul.innerHTML = zeile("Teste WebAssembly-Speicher …", "");
+  await new Promise(r => setTimeout(r, 120));
+  let wasmMB = 0, wasmFehler = "";
+  try {
+    const speicher = new WebAssembly.Memory({ initial: 16 });   // 1 MB
+    wasmMB = 1;
+    while (wasmMB < 2048) { speicher.grow(16 * 64); wasmMB += 64; }
+  } catch (e) { wasmFehler = e.name || String(e); }
+  ergebnisse.push(["WebAssembly-Speicher", wasmMB + " MB"
+    + (wasmFehler ? " (dann " + wasmFehler + ")" : "")]);
+
   const spiel = spiele.length
     ? spiele.reduce((a, b) => (a.groesse > b.groesse ? a : b)) : null;
   ergebnisse.push(["Größtes am Stück", groesste + " MB"]);
   if (spiel) {
     const mb = Math.round(spiel.groesse / 1048576);
+    // Massgeblich ist der WebAssembly-Speicher, nicht der gewoehnliche.
     ergebnisse.push([mb + " MB großes Spiel",
-                     mb <= groesste ? "sollte passen" : "passt NICHT in den Speicher"]);
+                     mb <= wasmMB ? "sollte passen"
+                     : "zu groß – WebAssembly hat hier nur " + wasmMB + " MB"]);
   }
   ergebnisse.push(["Zurück", "SPIEL-Knopf oder Seite neu laden"]);
   ul.innerHTML = ergebnisse.map(([a, b]) => zeile(a, b)).join("");
