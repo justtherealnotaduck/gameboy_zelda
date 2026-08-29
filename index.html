@@ -623,6 +623,28 @@ async function diagnose() {
                  + (gelesen === blob.size ? " (vollständig)" : " (UNVOLLSTÄNDIG)");
     } catch (e) { spielInfo += " · FEHLER: " + (e.message || e); }
   }
+
+  // Genau der Weg, den der Emulator geht: aus dem Blob eine blob:-Adresse
+  // machen und sie abrufen. Das ist der einzige Unterschied zwischen Rechner
+  // und iPhone, der bisher nicht gemessen wurde.
+  let blobweg = "keine Spiele";
+  if (spiele.length) {
+    const groesstes = spiele.reduce((a, b) => (a.groesse > b.groesse ? a : b));
+    let url = null;
+    try {
+      url = URL.createObjectURL(groesstes.daten);
+      const antwort = await fetch(url);
+      blobweg = "HTTP " + antwort.status;
+      const leser = antwort.body.getReader();
+      let n = 0;
+      for (;;) { const { done, value } = await leser.read();
+                 if (done) break; n += value.length; }
+      blobweg += " · " + (n / 1048576).toFixed(0) + " MB abgerufen"
+               + (n === groesstes.daten.size ? " (vollständig)" : " (UNVOLLSTÄNDIG)");
+    } catch (e) {
+      blobweg = "FEHLER: " + (e.name || "") + " " + (e.message || e);
+    } finally { if (url) URL.revokeObjectURL(url); }
+  }
   let platz = "unbekannt";
   try {
     const p = await navigator.storage.estimate();
@@ -642,6 +664,7 @@ async function diagnose() {
                                           { headers: { Range: "bytes=0-64" } })],
     ["Eigene Seite", await hole("geometrie.json")],
     ["Größtes Spiel", spielInfo],
+    ["blob:-Adresse abrufen", blobweg],
     ["Speicher", platz],
     ["Letzte Fehler", fehlerLog.length ? fehlerLog.slice(-3).join(" | ") : "keine"],
   ];
