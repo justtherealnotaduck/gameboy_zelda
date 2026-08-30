@@ -69,6 +69,9 @@
   #liste .titel { font-size: clamp(9px, 2.7vw, 14px); font-weight: 600; line-height: 1.2; }
   #liste .zeile2 { font-size: clamp(7px, 2vw, 10px); color: #9b9078; }
   #liste .neu .titel { color: #cea54e; }
+  /* Die Loeschfrage muss samt beider Antworten auf den kleinen Schirm passen -
+     die Frage selbst darf darum nicht so gross sein wie ein Spielname. */
+  #liste .frage .titel { font-size: clamp(8px, 2.2vw, 11px); color: #e4dcc2; }
   #fuss { flex: 0 0 auto; text-align: center; font-size: clamp(6px, 1.8vw, 9px);
           color: #8d846e; padding-top: 2%; line-height: 1.4; }
   #datei, #stand { display: none; }
@@ -535,6 +538,8 @@ function vollbildUmschalten() {
 // --- Auswahlbildschirm -----------------------------------------------------
 function zeichneListe() {
   const ul = document.getElementById("liste");
+  document.querySelector("#start h1").textContent = "SPIEL WÄHLEN";
+  document.getElementById("fuss").style.display = "";
   ul.innerHTML = "";
   const zeilen = spiele.map(s => ({
     titel: s.name,
@@ -578,18 +583,62 @@ function waehlen() {
 // Ein Abbild kann mehr als ein Gigabyte belegen. Ohne Weg, es wieder
 // loszuwerden, bleibt es fuer immer im Browserspeicher liegen - und der Platz
 // fehlt dann jedem weiteren Spiel.
-async function entfernen() {
+// Gefragt wird im Geraet selbst, nicht ueber confirm(): in einer App vom
+// Home-Bildschirm zeigt iOS die eingebauten Dialoge nicht zuverlaessig an,
+// und beim Loeschen darf die Rueckfrage nicht verlorengehen. Bedient wird
+// sie wie alles andere - Steuerkreuz und A.
+let loeschFrage = null;                 // Spiel, das geloescht werden soll
+let loeschWahl = 0;                     // 0 = Abbrechen (Vorgabe), 1 = loeschen
+
+function entfernen() {
   const s = spiele[wahl];
   if (!s) return;                       // Hinzufuegen, Diagnose, Speichertest
+  loeschFrage = s;
+  loeschWahl = 0;                       // im Zweifel nichts kaputtmachen
+  loeschFrageZeichnen();
+}
+
+function loeschFrageZeichnen() {
+  const ul = document.getElementById("liste");
+  const s = loeschFrage;
   const mb = (s.groesse / 1048576).toFixed(0);
-  if (!confirm(s.name + " (" + mb + " MB) vom Gerät löschen?\n\n"
-               + "Die Datei in der Dateien-App bleibt; nur die Kopie im "
-               + "Browserspeicher wird frei.")) return;
+  document.querySelector("#start h1").textContent = "SPIEL LÖSCHEN";
+  // Der Fusstext erklaert das Waehlen und Starten - waehrend der Frage sagt er
+  // das Falsche und nimmt den Platz weg, den die zweite Antwort braucht.
+  document.getElementById("fuss").style.display = "none";
+  melden("");
+  // Beide Antworten einzeilig: der Schirm ist klein, und eine Rueckfrage, bei
+  // der man die zweite Antwort erst herunterrollen muss, taugt nichts.
+  const zeile = (titel, gewaehlt) =>
+    '<li class="' + (gewaehlt ? "gewaehlt" : "") + '">'
+    + '<span class="pfeil">▶</span><span class="titel">' + titel
+    + "</span></li>";
+  ul.innerHTML =
+    '<li class="frage"><span><span class="titel">Möchtest du das Spiel wirklich '
+    + 'löschen?</span><br><span class="zeile2">'
+    + s.name.replace(/[<>&]/g, "") + " · " + mb
+    + " MB · die Datei in der Dateien-App bleibt</span></span></li>"
+    + zeile("Abbrechen", loeschWahl === 0)
+    + zeile("Ja, löschen", loeschWahl === 1);
+  const eintraege = ul.querySelectorAll("li");
+  eintraege[1].addEventListener("click", loeschAbbrechen);
+  eintraege[2].addEventListener("click", loeschAusfuehren);
+  const g = ul.querySelector("li.gewaehlt");
+  if (g) g.scrollIntoView({ block: "nearest" });
+}
+
+function loeschAbbrechen() { loeschFrage = null; zeichneListe(); }
+
+async function loeschAusfuehren() {
+  const s = loeschFrage;
+  loeschFrage = null;
   await vergessen(s.id);
   spiele = await alleSpiele();
-  if (wahl >= spiele.length + 3) wahl = spiele.length + 2;
+  if (wahl > spiele.length) wahl = spiele.length;
   zeichneListe();
+  melden(s.name + " gelöscht");
 }
+
 
 // Misst, wieviel Arbeitsspeicher der Browser dieser Seite tatsaechlich gibt.
 // Der Emulator laedt ein Abbild vollstaendig in den Speicher; ob ein bestimmtes
@@ -975,6 +1024,17 @@ function nummer(name) {
 function senden(name, gedrueckt) {
   if (!laeuft) {                       // Auswahlbildschirm
     if (!gedrueckt) return;
+    if (loeschFrage) {                 // die Rueckfrage hat Vorrang
+      if (name === "UP" || name === "DOWN"
+          || name === "LEFT" || name === "RIGHT") {
+        loeschWahl = loeschWahl ? 0 : 1; loeschFrageZeichnen();
+      } else if (name === "A" || name === "START") {
+        if (loeschWahl) loeschAusfuehren(); else loeschAbbrechen();
+      } else if (name === "B" || name === "SPIEL") {
+        loeschAbbrechen();
+      }
+      return;
+    }
     if (name === "UP" || name === "LEFT") bewegen(-1);
     else if (name === "DOWN" || name === "RIGHT") bewegen(1);
     else if (name === "A" || name === "START") waehlen();
