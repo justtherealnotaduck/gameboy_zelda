@@ -238,6 +238,16 @@ async function vergessen(id) {
 }
 
 // --- Aufbau ----------------------------------------------------------------
+// Der Worker wird gleich beim Start angemeldet, aber ohne Abschottung: er
+// legt die eigenen Dateien und die kleinen Dateien des Emulator-CDN beiseite,
+// damit die App auch ohne Verbindung startet. Ohne ihn steht man im Flugzeug
+// vor einer leeren Seite, obwohl die Spiele auf dem Geraet liegen.
+// Geholt wird weiter zuerst aus dem Netz - eine veroeffentlichte Aenderung
+// muss ankommen.
+if (window.abschottungAnmelden) {
+  window.abschottungAnmelden().catch(e => fehlerLog.push("Worker: " + e));
+}
+
 fetch("geometrie.json").then(r => r.json()).then(async d => {
   geo = d;
   aufbauen("gba", "gb");
@@ -785,6 +795,7 @@ async function diagnose() {
     ["Speicher", platz],
     ["Letzte Fehler", fehlerLog.length ? fehlerLog.slice(-3).join(" | ") : "keine"],
     ["Abgebrochener Start", spurLesen()],
+    ["Offline-Vorrat", await vorratLesen()],
   ];
   // In die Zwischenablage legen: das Ergebnis ist laenger als der Bildschirm,
   // und abgetippte oder abgefilmte Diagnosen kosten beide Seiten Zeit.
@@ -804,6 +815,28 @@ async function diagnose() {
     + zeile("Zurück", "SPIEL-Knopf oder Seite neu laden");
   document.getElementById("abmelden")
     .addEventListener("click", abschottungAbmelden);
+}
+
+// Was im Zwischenspeicher liegt, entscheidet, ob die App ohne Verbindung
+// startet. Die grosse Kerndatei ist absichtlich nicht dabei - die haelt
+// EmulatorJS selbst in seiner Datenbank.
+async function vorratLesen() {
+  if (!window.caches) return "Browser kann das nicht";
+  try {
+    const namen = await caches.keys();
+    let n = 0, bericht = 0, lader = 0;
+    for (const name of namen) {
+      const b = await caches.open(name);
+      for (const a of await b.keys()) {
+        n++;
+        if (a.url.includes("/cores/reports/")) bericht++;
+        if (a.url.includes("loader.js") || a.url.includes("emulator.min")) lader++;
+      }
+    }
+    if (!n) return "leer – offline startet die App nicht";
+    return n + " Dateien, davon " + lader + " Emulator und " + bericht
+           + " Kern-Berichte";
+  } catch (e) { return "nicht lesbar (" + (e.message || e) + ")"; }
 }
 
 // Der Service Worker wird beim ersten PSP- oder DS-Start angemeldet und bleibt
@@ -915,7 +948,7 @@ function hochfahren(url, name, sys, kennung, groesse) {
     document.getElementById("start").style.display = "";
     laeuft = false;
     melden("Wird eingerichtet – die Seite lädt gleich neu …");
-    (window.abschottungAnmelden ? window.abschottungAnmelden()
+    (window.abschottungAnmelden ? window.abschottungAnmelden(true)
                                 : Promise.reject("fehlt"))
       .then(() => { if (kennung) sessionStorage.setItem("starte", kennung);
                     setTimeout(() => location.reload(), 600); })
