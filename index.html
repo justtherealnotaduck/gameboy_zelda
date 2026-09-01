@@ -203,8 +203,17 @@ let quer = localStorage.getItem("ansicht") === "quer";
 // werden nie hochgeladen und ueberstehen das Schliessen der App.
 function db() {
   return new Promise((ok, fehler) => {
-    const a = indexedDB.open("gameboy-zelda", 1);
-    a.onupgradeneeded = () => a.result.createObjectStore("spiele", { keyPath: "id" });
+    const a = indexedDB.open("gameboy-zelda", 2);
+    a.onupgradeneeded = () => {
+      const d = a.result;
+      if (!d.objectStoreNames.contains("spiele"))
+        d.createObjectStore("spiele", { keyPath: "id" });
+      // Fach 2 kam spaeter dazu: die Autospeicherstaende. Beide Faecher
+      // werden angelegt, wenn sie fehlen - so kommt auch eine bestehende
+      // Datenbank vom Geraet sauber auf den neuen Stand.
+      if (!d.objectStoreNames.contains("staende"))
+        d.createObjectStore("staende", { keyPath: "id" });
+    };
     a.onsuccess = () => ok(a.result);
     a.onerror = () => fehler(a.error);
   });
@@ -224,6 +233,37 @@ async function merken(eintrag) {
   return new Promise(ok => {
     const t = d.transaction("spiele", "readwrite");
     t.objectStore("spiele").put(eintrag);
+    t.oncomplete = ok;
+  });
+}
+
+// Autospeicher: ein vollstaendiger Speicherpunkt im Browser, nicht in der
+// Dateien-App. Ocarina speichert nur an Eulen und Betten; wirft Safari die
+// App dazwischen weg, ist alles seit dem letzten Mal verloren.
+async function standMerken(id, daten) {
+  const d = await db();
+  return new Promise((ok, fehler) => {
+    const t = d.transaction("staende", "readwrite");
+    t.objectStore("staende").put({ id: id, daten: daten, zeit: Date.now() });
+    t.oncomplete = ok;
+    t.onerror = () => fehler(t.error);
+  });
+}
+
+async function standHolen(id) {
+  const d = await db();
+  return new Promise(ok => {
+    const a = d.transaction("staende").objectStore("staende").get(id);
+    a.onsuccess = () => ok(a.result || null);
+    a.onerror = () => ok(null);
+  });
+}
+
+async function standVergessen(id) {
+  const d = await db();
+  return new Promise(ok => {
+    const t = d.transaction("staende", "readwrite");
+    t.objectStore("staende").delete(id);
     t.oncomplete = ok;
   });
 }
@@ -532,8 +572,9 @@ function ansichtUmschalten() {
 }
 
 function beschriftungen() {
-  MENUE[3].text = vollbild ? "Vollbild aus" : "Vollbild";
-  MENUE[4].text = quer ? "Ansicht: Game Boy" : "Ansicht: N64-Controller";
+  menuePunkt("vollbild").text = vollbild ? "Vollbild aus" : "Vollbild";
+  menuePunkt("ansicht").text = quer ? "Ansicht: Game Boy"
+                                    : "Ansicht: N64-Controller";
 }
 
 function vollbildUmschalten() {
@@ -643,6 +684,8 @@ async function loeschAusfuehren() {
   const s = loeschFrage;
   loeschFrage = null;
   await vergessen(s.id);
+  await standVergessen(s.id);           // sonst bleibt der Stand als Waise
+
   spiele = await alleSpiele();
   if (wahl > spiele.length) wahl = spiele.length;
   zeichneListe();
@@ -984,6 +1027,7 @@ function hochfahren(url, name, sys, kennung, groesse) {
                          cacheManager: false, exitEmulation: false };
   putzen();
   spurLegen(name, sys.kern, groesseMB);
+  autoStart(kennung);
   // Sobald der Emulator steht, seine eigene Controller-Belegung loesen.
   const loesen = setInterval(() => { if (padEntkoppeln()) clearInterval(loesen); }, 300);
   setTimeout(() => clearInterval(loesen), 60000);
@@ -1115,13 +1159,19 @@ function senden(name, gedrueckt) {
 // mehr Verlass.
 let menueOffen = false, menueWahl = 0;
 const MENUE = [
-  { text: "Spielstand sichern", tun: standSichern },
-  { text: "Spielstand laden", tun: () => document.getElementById("stand").click() },
-  { text: "Zurück zur Auswahl", tun: zurueck },
-  { text: "Vollbild", tun: () => vollbildUmschalten() },
-  { text: "Ansicht", tun: () => ansichtUmschalten() },
-  { text: "Weiterspielen", tun: () => menueUmschalten() },
+  { id: "sichern",  text: "Spielstand sichern", tun: standSichern },
+  { id: "laden",    text: "Spielstand laden",
+    tun: () => document.getElementById("stand").click() },
+  { id: "autoweg",  text: "Autospeicher verwerfen", tun: autoVerwerfen },
+  { id: "zurueck",  text: "Zurück zur Auswahl", tun: zurueck },
+  { id: "vollbild", text: "Vollbild", tun: () => vollbildUmschalten() },
+  { id: "ansicht",  text: "Ansicht", tun: () => ansichtUmschalten() },
+  { id: "weiter",   text: "Weiterspielen", tun: () => menueUmschalten() },
 ];
+
+// Eintraege ueber ihre Kennung finden statt ueber die Position - sonst
+// verschiebt jeder neue Menuepunkt still die Beschriftungen.
+function menuePunkt(id) { return MENUE.find(m => m.id === id); }
 
 function menueUmschalten() {
   menueOffen = !menueOffen;
@@ -1186,11 +1236,93 @@ document.getElementById("stand").addEventListener("change", async ev => {
   } catch (e) { alert("Laden nicht möglich: " + e); }
 });
 
-function zurueck() {
+// --- Autospeicher ----------------------------------------------------------
+// Alle 30 Sekunden und immer, wenn die App in den Hintergrund geht. Das
+// Zweite ist das Wichtigere: auf dem iPhone ist der Wechsel in den
+// Hintergrund der letzte Moment, in dem wir noch etwas tun duerfen, bevor
+// Safari die Seite irgendwann wegwirft.
+const AUTO_TAKT = 30000;
+let autoKennung = null, autoZeitgeber = null, autoLaeuft = false;
+
+function autoStart(kennung) {
+  autoEnde();
+  autoKennung = kennung || null;
+  if (!autoKennung) return;             // Spiele aus einer Adresse: kein Fach
+  // Warten, bis der Emulator wirklich steht - ein Speicherpunkt, der zu
+  // frueh geladen wird, reisst ihn mit.
+  const warte = setInterval(() => {
+    const gm = window.EJS_emulator && window.EJS_emulator.gameManager;
+    if (!gm) return;
+    clearInterval(warte);
+    setTimeout(() => autoFortsetzen(gm), 1500);
+  }, 500);
+  setTimeout(() => clearInterval(warte), 60000);
+}
+
+function autoEnde() {
+  if (autoZeitgeber) clearInterval(autoZeitgeber);
+  autoZeitgeber = null;
+}
+
+async function autoFortsetzen(gm) {
+  const kennung = autoKennung;
+  try {
+    const stand = await standHolen(kennung);
+    if (stand && stand.daten) {
+      gm.loadState(new Uint8Array(stand.daten));
+      const alter = Math.round((Date.now() - stand.zeit) / 60000);
+      melden("Fortgesetzt (" + (alter < 1 ? "gerade eben"
+                                          : "vor " + alter + " min") + ")");
+      setTimeout(() => melden(""), 4000);
+    }
+  } catch (e) {
+    // Ein unbrauchbarer Stand darf das Spiel nicht dauerhaft blockieren.
+    fehlerLog.push("Autospeicher nicht ladbar: " + (e.message || e));
+    try { await standVergessen(kennung); } catch (e2) {}
+    melden("Autospeicher war unbrauchbar und wurde verworfen");
+  }
+  autoZeitgeber = setInterval(autoSichern, AUTO_TAKT);
+}
+
+async function autoSichern() {
+  if (autoLaeuft || !laeuft || !autoKennung) return;
+  const gm = window.EJS_emulator && window.EJS_emulator.gameManager;
+  if (!gm) return;
+  autoLaeuft = true;
+  try {
+    gm.saveSaveFiles();                 // die Batteriespeicherung des Spiels
+    const stand = await gm.getState();  // und der vollstaendige Punkt
+    if (stand && stand.length) await standMerken(autoKennung, stand);
+  } catch (e) {
+    fehlerLog.push("Autospeichern: " + (e.message || e));
+  } finally { autoLaeuft = false; }
+}
+
+async function autoVerwerfen() {
+  if (!autoKennung) { menueUmschalten(); return; }
+  await standVergessen(autoKennung);
+  melden("Autospeicher verworfen");
+  setTimeout(() => melden(""), 3000);
+  menueUmschalten();
+}
+
+// Der Wechsel in den Hintergrund ist der letzte sichere Moment. Das Ereignis
+// entsteht am document - dort wird es auch abgeholt, statt sich darauf zu
+// verlassen, dass es bis zum window aufsteigt.
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) autoSichern();
+});
+addEventListener("pagehide", () => { autoSichern(); });
+
+async function zurueck() {
   // EmulatorJS kann ein zweites Spiel nicht sauber in denselben Bereich laden,
   // darum der Umweg ueber einen Neustart der Seite. Der Spielstand liegt in
   // der Datenbank des Emulators und ueberlebt das.
   try { window.EJS_emulator.gameManager.saveSaveFiles(); } catch (e) {}
+  // Noch einmal von Hand, bevor die Seite neu laedt - sonst fehlt alles seit
+  // dem letzten Takt. Hier ist Zeit dafuer, anders als beim Wegwerfen.
+  await autoSichern();
+  autoEnde();
   // Selbst zurueckgegangen ist kein Absturz - die Spur darf nicht liegen
   // bleiben, sonst meldet die Diagnose einen Abbruch, den es nie gab.
   try { localStorage.removeItem(SPUR); } catch (e) {}
