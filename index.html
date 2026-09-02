@@ -284,9 +284,18 @@ async function vergessen(id) {
 // vor einer leeren Seite, obwohl die Spiele auf dem Geraet liegen.
 // Geholt wird weiter zuerst aus dem Netz - eine veroeffentlichte Aenderung
 // muss ankommen.
+// Pfad und Behaelter braucht die Seite, um den Vorrat selbst zu fuellen.
+// Anders benannt als in abschottung.js: das laeuft als eigenes Skript im
+// selben globalen Raum, und zwei const mit demselben Namen lassen das
+// zweite Skript vollstaendig scheitern - dann ist die ganze App tot.
+const CDN_DATEN = "https://cdn.emulatorjs.org/stable/data/";
+const VORRAT = "gameboy-zelda-1";
+
 if (window.abschottungAnmelden) {
   window.abschottungAnmelden().catch(e => fehlerLog.push("Worker: " + e));
 }
+dauerhaftBitten();
+vorratFuellen();
 
 fetch("geometrie.json").then(r => r.json()).then(async d => {
   geo = d;
@@ -839,6 +848,7 @@ async function diagnose() {
     ["Letzte Fehler", fehlerLog.length ? fehlerLog.slice(-3).join(" | ") : "keine"],
     ["Abgebrochener Start", spurLesen()],
     ["Offline-Vorrat", await vorratLesen()],
+    ["Speicher dauerhaft", await dauerhaftLesen()],
   ];
   // In die Zwischenablage legen: das Ergebnis ist laenger als der Bildschirm,
   // und abgetippte oder abgefilmte Diagnosen kosten beide Seiten Zeit.
@@ -863,6 +873,15 @@ async function diagnose() {
 // Was im Zwischenspeicher liegt, entscheidet, ob die App ohne Verbindung
 // startet. Die grosse Kerndatei ist absichtlich nicht dabei - die haelt
 // EmulatorJS selbst in seiner Datenbank.
+async function dauerhaftLesen() {
+  try {
+    if (!navigator.storage || !navigator.storage.persisted) return "unbekannt";
+    return (await navigator.storage.persisted())
+      ? "ja – Safari raeumt den Vorrat nicht weg"
+      : "nein – kann irgendwann weggeraeumt werden";
+  } catch (e) { return "nicht lesbar"; }
+}
+
 async function vorratLesen() {
   if (!window.caches) return "Browser kann das nicht";
   try {
@@ -1007,7 +1026,7 @@ function hochfahren(url, name, sys, kennung, groesse) {
   window.EJS_core = sys.kern;
   window.EJS_gameUrl = url;
   window.EJS_gameName = name;
-  window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  window.EJS_pathtodata = CDN_DATEN;
   window.EJS_startOnLoaded = true;
   // PSP und DS brauchen Threads (SharedArrayBuffer). Die stehen nur zur
   // Verfuegung, wenn die Seite abgeschottet ausgeliefert wird - siehe
@@ -1048,6 +1067,37 @@ function hochfahren(url, name, sys, kennung, groesse) {
 // wenn das Spiel eine Weile wirklich lief. Liegt sie beim naechsten Start
 // noch da, ist genau dazwischen etwas gestorben - und die Diagnose sagt, bei
 // welchem Spiel.
+// Ohne diese vier startet der Emulator nicht. Sie haengen als <script> bzw.
+// <link> an einer fremden Adresse; im Vorbeifliegen sind sie schwer zu
+// erwischen, also holt die Seite sie selbst und legt sie ab.
+const EMULATOR_DATEIEN = ["loader.js", "emulator.min.js", "emulator.min.css",
+                          "compression/extract7z.js"];
+
+async function vorratFuellen() {
+  if (!window.caches) return;
+  try {
+    const b = await caches.open(VORRAT);
+    await Promise.all(EMULATOR_DATEIEN.map(async d => {
+      if (await b.match(CDN_DATEN + d)) return;          // liegt schon da
+      const antwort = await fetch(CDN_DATEN + d, { mode: "cors", credentials: "omit" });
+      if (antwort.ok) await b.put(CDN_DATEN + d, antwort);
+    }));
+  } catch (e) {
+    fehlerLog.push("Vorrat fuellen: " + (e.message || e));
+  }
+}
+
+// Safari raeumt Daten von Webseiten irgendwann weg. Einmal fragen kostet
+// nichts; ob es gewaehrt wird, entscheidet der Browser selbst.
+async function dauerhaftBitten() {
+  try {
+    if (navigator.storage && navigator.storage.persist
+        && !(await navigator.storage.persisted())) {
+      await navigator.storage.persist();
+    }
+  } catch (e) {}
+}
+
 const SPUR = "letzterStart";
 function spurLegen(name, kern, groesseMB) {
   try {
