@@ -168,9 +168,15 @@ const TASTE = { B: 0, Y: 1, SELECT: 2, START: 3, UP: 4, DOWN: 5, LEFT: 6,
 // Mask und Mario Kart steuern praktisch nur darueber, mit dem Digitalkreuz
 // waeren sie unspielbar. Das C-Kreuz liegt beim N64-Kern auf dem rechten
 // Stick, Z auf L2.
-// A und B liegen beim N64-Kern umgekehrt: nachgemessen bestaetigt Knopf 0 die
-// Streckenwahl in Mario Kart, das ist N64-A. Knopf 8 tut dort nichts.
-const N64_TASTE = { A: 0, B: 8,
+// A liegt beim N64-Kern auf 0 - nachgemessen bestaetigt Knopf 0 die
+// Streckenwahl in Mario Kart. B liegt auf 1, NICHT auf 8: dass 8 in Mario
+// Kart nichts tat, war der Hinweis darauf, dass es gar keine N64-Taste ist.
+// Nachgeschlagen in der Tastentabelle von EmulatorJS fuer n64:
+//   0 A · 1 B · 3 START · 4-7 Steuerkreuz · 10 L · 11 R · 12 Z
+//   19/18/17/16 Stick hoch/runter/links/rechts
+//   23/22/21/20 C-Kreuz hoch/runter/links/rechts
+// Mit B auf 8 blieb in Ocarina das Schwert stecken - schlagen ging nicht.
+const N64_TASTE = { A: 0, B: 1,
                     DUP: 4, DDOWN: 5, DLEFT: 6, DRIGHT: 7,
                     CUP: 23, CDOWN: 22, CLEFT: 21, CRIGHT: 20, Z: 12 };
 // Hochkant ist das Steuerkreuz die einzige Richtungseingabe. Es schickt darum
