@@ -867,18 +867,22 @@ async function vorratLesen() {
   if (!window.caches) return "Browser kann das nicht";
   try {
     const namen = await caches.keys();
-    let n = 0, bericht = 0, lader = 0;
+    let n = 0, bericht = 0;
+    const noetig = { "loader.js": false, "emulator.min.js": false,
+                     "emulator.min.css": false, "extract7z.js": false };
     for (const name of namen) {
       const b = await caches.open(name);
       for (const a of await b.keys()) {
         n++;
         if (a.url.includes("/cores/reports/")) bericht++;
-        if (a.url.includes("loader.js") || a.url.includes("emulator.min")) lader++;
+        for (const datei in noetig) if (a.url.endsWith(datei)) noetig[datei] = true;
       }
     }
     if (!n) return "leer – offline startet die App nicht";
-    return n + " Dateien, davon " + lader + " Emulator und " + bericht
-           + " Kern-Berichte";
+    const fehlt = Object.keys(noetig).filter(d => !noetig[d]);
+    return n + " Dateien, " + bericht + " Kern-Berichte, "
+           + (fehlt.length ? "ES FEHLT: " + fehlt.join(", ")
+                           : "Emulator vollständig");
   } catch (e) { return "nicht lesbar (" + (e.message || e) + ")"; }
 }
 

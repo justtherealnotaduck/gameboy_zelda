@@ -44,22 +44,34 @@ if (typeof window === "undefined") {
     const eigen = url.origin === self.location.origin;
     if (!eigen && url.origin !== CDN) return;      // sonst nichts anfassen
 
-    ev.respondWith(netzZuerst(anfrage, eigen && COEP));
+    ev.respondWith(netzZuerst(anfrage, eigen && COEP, !eigen));
   });
 
-  async function netzZuerst(anfrage, kopfzeilen) {
+  async function netzZuerst(anfrage, kopfzeilen, fremd) {
+    // loader.js und emulator.min.js haengen als <script src> an einer fremden
+    // Adresse. Ohne crossorigin ist die Antwort darauf undurchsichtig: Status
+    // 0, Typ 'opaque', nicht lesbar und nicht sinnvoll ablegbar - genau darum
+    // lag der Emulator nie im Vorrat, waehrend die Kern-Berichte drin waren
+    // (die holt EmulatorJS per fetch mit CORS). Das CDN beantwortet CORS
+    // bereitwillig (access-control-allow-origin: *), also fragen wir selbst
+    // ausdruecklich so und bekommen eine Antwort, die wir behalten koennen.
+    const holen = fremd && anfrage.mode === "no-cors"
+      ? new Request(anfrage.url, { mode: "cors", credentials: "omit" })
+      : anfrage;
     try {
-      const antwort = await fetch(anfrage);
+      const antwort = await fetch(holen);
       if (antwort && antwort.status === 200 && antwort.type !== "opaque") {
         const kopie = antwort.clone();
+        // Abgelegt wird unter der Adresse, nicht unter der Anfrage - sonst
+        // findet die naechste Anfrage mit anderem Modus den Eintrag nicht.
         caches.open(BEHAELTER)
-          .then(b => b.put(anfrage, kopie))
+          .then(b => b.put(anfrage.url, kopie))
           .catch(() => {});                        // voller Speicher: egal
         return kopfzeilen ? mitKopfzeilen(antwort) : antwort;
       }
       return antwort;
     } catch (e) {
-      const treffer = await caches.match(anfrage);
+      const treffer = await caches.match(anfrage.url);
       if (!treffer) throw e;                       // wirklich nichts da
       return kopfzeilen ? mitKopfzeilen(treffer) : treffer;
     }
